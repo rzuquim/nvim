@@ -86,3 +86,17 @@ keymap("n", "<C-e>", vim.diagnostic.goto_prev)
 keymap("n", "<C-E>", vim.diagnostic.goto_next)
 keymap("n", "<leader>ee", vim.diagnostic.setloclist)
 keymap("n", "<leader>ef", vim.diagnostic.open_float)
+
+local M = {}
+
+function M.telescope(telescope_builtin)
+    keymap("n", "<C-p>", telescope_builtin.find_files, { desc = "Search Files" })
+    keymap("n", "<leader>/h", telescope_builtin.help_tags, { desc = "Search [H]elp" })
+    keymap("n", "<leader>/k", telescope_builtin.keymaps, { desc = "Search [K]eymaps" })
+    keymap("n", "<leader>/w", telescope_builtin.grep_string, { desc = "Search [W]ord" })
+    keymap("n", "<leader>//", telescope_builtin.live_grep, { desc = "Search by Grep" })
+    keymap("n", "<leader>/d", telescope_builtin.diagnostics, { desc = "Search [D]iagnostics" })
+    keymap("n", "<leader><leader>", telescope_builtin.buffers, { desc = "[ ] Find existing buffers" })
+end
+
+return M
