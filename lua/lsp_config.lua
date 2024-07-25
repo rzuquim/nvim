@@ -30,6 +30,13 @@ function M.config()
             end,
         },
     })
+
+    vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('keymaps-lsp-attach', { clear = true }),
+        callback = function(event)
+            KEYMAPS.lsp(event.buf)
+        end
+    })
 end
 
 
