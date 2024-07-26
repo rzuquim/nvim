@@ -1,5 +1,3 @@
--- keymaps em arquivo só
--- lang => um arquivo (lsp, formatter?, treesitter, snippet?)
 -- TODO: multi_cursor
 
 require("options")
