@@ -1,10 +1,8 @@
-
 return {
     lsp = 'rust_analyzer',
     settings = {
-		diagnostics = {
-			enable = false,
-		},
-	},
+        diagnostics = {
+            enable = false,
+        },
+    },
 }
-
