@@ -100,23 +100,20 @@ end
 
 function M.oil()
     return {
-        ['<CR>'] = 'actions.select',
-        ['_'] = 'actions.parent',
-        ['<A-v>'] = { 'actions.select', opts = { vertical = true } },
-        ['<A-h>'] = { 'actions.select', opts = { horizontal = true } },
-        ['<C-.>'] = 'actions.toggle_hidden', -- TODO: not working
-        -- default
-        ['g?'] = 'actions.show_help',
-        ['<C-t>'] = { 'actions.select', opts = { tab = true }, desc = 'Open the entry in new tab' },
-        -- ["<C-p>"] = "actions.preview",
-        ['<C-c>'] = 'actions.close',
-        ['<C-l>'] = 'actions.refresh',
-        ['-'] = 'actions.open_cwd',
-        ['`'] = 'actions.cd',
-        ['~'] = { 'actions.cd', opts = { scope = 'tab' }, desc = ':tcd to the current oil directory' },
-        ['gs'] = 'actions.change_sort',
-        ['gx'] = 'actions.open_external',
-        ['g\\'] = 'actions.toggle_trash',
+        ["<CR>"] = "actions.select",
+        ["<A-v>"] = { "actions.select", opts = { vertical = true } },
+        ["<A-h>"] = { "actions.select", opts = { horizontal = true } },
+        ["<Esc>"] = { callback = "actions.close", mode = "n" },
+        ["_"] = "actions.parent",
+        ["<S-_>"] = "actions.open_cwd",
+        ["<C-.>"] = "actions.toggle_hidden",
+        ["<A-p>"] = "actions.preview",
+        -- ["<C-l>"] = "actions.refresh",
+        -- ["`"] = "actions.cd",
+        -- ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
+        -- ["gs"] = "actions.change_sort",
+        -- ["gx"] = "actions.open_external",
+        -- ["g\\"] = "actions.toggle_trash",
     }
 end
 
