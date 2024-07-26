@@ -11,8 +11,6 @@ local M = {
 }
 
 local langs = require('langs')
--- TODO: load dirs
--- local langs = require('fs').loadFiles()
 local ensure_installed = {}
 
 function M.config()

@@ -89,13 +89,14 @@ keymap('n', '<leader>ef', vim.diagnostic.open_float)
 local M = {}
 
 function M.telescope(telescope_builtin)
-    keymap('n', '<C-p>', telescope_builtin.find_files, { desc = 'Search Files' })
-    keymap('n', '<leader>/h', telescope_builtin.help_tags, { desc = 'Search [H]elp' })
-    keymap('n', '<leader>/k', telescope_builtin.keymaps, { desc = 'Search [K]eymaps' })
-    keymap('n', '<leader>/w', telescope_builtin.grep_string, { desc = 'Search [W]ord' })
-    keymap('n', '<leader>//', telescope_builtin.live_grep, { desc = 'Search by Grep' })
-    keymap('n', '<leader>/d', telescope_builtin.diagnostics, { desc = 'Search [D]iagnostics' })
-    keymap('n', '<leader><leader>', telescope_builtin.buffers, { desc = '[ ] Find existing buffers' })
+    keymap('n', '<C-p>', telescope_builtin.find_files)
+    keymap('n', '<leader>/h', telescope_builtin.help_tags)
+    keymap('n', '<leader>/k', telescope_builtin.keymaps)
+    keymap('n', '<leader>/w', telescope_builtin.grep_string)
+    keymap('n', '<leader>//', telescope_builtin.live_grep)
+    keymap('n', '<leader>/d', telescope_builtin.diagnostics)
+    keymap('n', '<leader>/t', ':TodoTelescope<CR>')
+    keymap('n', '<leader><leader>', telescope_builtin.buffers)
 end
 
 function M.oil()
