@@ -105,6 +105,7 @@ function M.oil()
         ["_"] = "actions.parent",
         ["<A-v>"] = { "actions.select", opts = { vertical = true } },
         ["<A-h>"] = { "actions.select", opts = { horizontal = true } },
+        ["<C-.>"] = "actions.toggle_hidden", -- TODO: not working
         -- default
         ["g?"] = "actions.show_help",
         ["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
@@ -116,7 +117,6 @@ function M.oil()
         ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
         ["gs"] = "actions.change_sort",
         ["gx"] = "actions.open_external",
-        ["g."] = "actions.toggle_hidden",
         ["g\\"] = "actions.toggle_trash",
     }
 end

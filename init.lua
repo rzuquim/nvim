@@ -13,7 +13,7 @@ plugins.setup("appearance.theme")
 plugins.setup("appearance.lualine")
 
 plugins.setup("behaviors.telescope")
--- plugins.setup("langs.conform")
+plugins.setup("behaviors.conform")
 
 plugins.install()
 
