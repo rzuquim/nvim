@@ -1,7 +1,13 @@
 local pwd = vim.fn.getcwd()
 local last_dir = ''
-for path in string.gmatch(pwd, '[^/]+') do -- iterate through dirs
-    last_dir = path
+if vim.fn.has 'win32' == 1 then
+    for path in string.gmatch(pwd, '[^\\]+') do -- iterate through dirs
+        last_dir = path
+    end
+else
+    for path in string.gmatch(pwd, '[^/]+') do -- iterate through dirs
+        last_dir = path
+    end
 end
 
 local currentProject = function()
