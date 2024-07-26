@@ -36,8 +36,6 @@ local options = {
     colorcolumn = '120', -- marker to set the desired max length
 
     undofile = true, -- persist undo history
-    -- TODO: descobrir como de definir o path do undo
-    -- undodir = os.getenv("HOME") .. "/.vim/undodir", -- where are the undo file
 
     termguicolors = true, -- i like good colors
     updatetime = 300, -- and fast update times
@@ -53,6 +51,12 @@ local options = {
     inccommand = 'split', -- preview substitutions live, as you type!
     hlsearch = true, -- highlight on search, but clear on pressing <Esc> in normal mode
 }
+
+if vim.fn.has 'win32' == 1 then
+  options.undodir = os.getenv("APPDATA") .. "/.vim/undodir"
+else
+  options.undodir = os.getenv("HOME") .. "/.vim/undodir"
+end
 
 -- reading every options prop and setting into the action vim.opt
 for k, v in pairs(options) do
