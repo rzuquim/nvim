@@ -11,6 +11,7 @@ plugins.setup("lsp_config")
 plugins.setup("appearance.oil")
 plugins.setup("appearance.theme")
 plugins.setup("appearance.lualine")
+plugins.setup("appearance.todo")
 
 plugins.setup("behaviors.telescope")
 plugins.setup("behaviors.conform")
