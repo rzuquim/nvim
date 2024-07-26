@@ -39,8 +39,16 @@ function M.config()
     })
 end
 
-for lang, _ in pairs(langs) do
+for lang, settings in pairs(langs) do
     table.insert(ensure_installed, lang)
+
+    if settings.extra_formatters then
+        for _, formattersByFileType in pairs(settings.extra_formatters) do
+            for _, formatter in ipairs(formattersByFileType) do
+                table.insert(ensure_installed, formatter)
+            end
+        end
+    end
 end
 
 return M

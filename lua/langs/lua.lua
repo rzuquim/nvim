@@ -6,10 +6,6 @@
 }]]
 
 return {
-    lsp = 'lua_ls',
-    -- cmd = {...},
-    -- filetypes = { ...},
-    -- capabilities = {},
     settings = {
         Lua = {
             completion = {
@@ -18,5 +14,9 @@ return {
             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
             -- diagnostics = { disable = { 'missing-fields' } },
         },
+    },
+    -- NOTE: not an lsp cofig everything with a leading extra_ is a custom prop
+    extra_formatters = {
+        lua = { 'stylua' },
     },
 }
