@@ -9,4 +9,5 @@ return {
     lemminx = require('langs.xml'),
     vtsls = require('langs.js'),
     html = require('langs.html'),
+    marksman = require('langs.markdown'),
 }
