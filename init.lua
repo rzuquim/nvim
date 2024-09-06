@@ -10,6 +10,7 @@ plugins.setup('appearance.oil')
 plugins.setup('appearance.theme')
 plugins.setup('appearance.lualine')
 plugins.setup('appearance.todo')
+plugins.setup('appearance.treesitter')
 
 plugins.setup('behavior.telescope')
 plugins.setup('behavior.conform')
