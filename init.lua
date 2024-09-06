@@ -1,4 +1,6 @@
 require("options")
+require("autocmds")
+
 KEYMAPS = require("keymaps")
 local plugins = require("plugin_manager")
 
