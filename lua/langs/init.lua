@@ -4,10 +4,11 @@
 --       this is a custom prop used only on this config, this is not canonical
 
 return {
-    lua_ls = require('langs.lua'),
-    rust_analyzer = require('langs.rust'),
-    lemminx = require('langs.xml'),
-    vtsls = require('langs.js'),
+    bashls = require("langs.bash"),
     html = require('langs.html'),
+    lemminx = require('langs.xml'),
+    lua_ls = require('langs.lua'),
     marksman = require('langs.markdown'),
+    rust_analyzer = require('langs.rust'),
+    vtsls = require('langs.js'),
 }
