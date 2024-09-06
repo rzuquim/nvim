@@ -1,9 +1,11 @@
-return {
+local M = {
     'folke/tokyonight.nvim',
-    lazy = false,
     priority = 1000,
-    opts = {},
-    init = function()
-        vim.cmd([[colorscheme tokyonight]])
-    end,
 }
+
+function M.init()
+    vim.cmd.colorscheme('tokyonight-moon')
+    vim.cmd.hi('Comment gui=none')
+end
+
+return M
