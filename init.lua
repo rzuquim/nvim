@@ -1,5 +1,3 @@
--- TODO: multi_cursor
-
 require("options")
 KEYMAPS = require("keymaps")
 local plugins = require("plugin_manager")
@@ -11,8 +9,9 @@ plugins.setup("appearance.theme")
 plugins.setup("appearance.lualine")
 plugins.setup("appearance.todo")
 
-plugins.setup("behaviors.telescope")
-plugins.setup("behaviors.conform")
+plugins.setup("behavior.telescope")
+plugins.setup("behavior.conform")
+plugins.setup("behavior.multi_cursor")
 
 plugins.install()
 

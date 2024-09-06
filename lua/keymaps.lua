@@ -106,9 +106,10 @@ function M.oil()
         ["<A-h>"] = { "actions.select", opts = { horizontal = true } },
         ["<Esc>"] = { callback = "actions.close", mode = "n" },
         ["_"] = "actions.parent",
-        ["<S-_>"] = "actions.open_cwd",
+        ["<C-_>"] = "actions.open_cwd",
         ["<C-.>"] = "actions.toggle_hidden",
         ["<A-p>"] = "actions.preview",
+
         -- ["<C-l>"] = "actions.refresh",
         -- ["`"] = "actions.cd",
         -- ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
