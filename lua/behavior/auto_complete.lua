@@ -17,6 +17,7 @@ local M = {
         --  nvim-cmp does not ship with all sources by default
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
+        'hrsh7th/cmp-buffer',
     },
 }
 
@@ -39,7 +40,7 @@ function M.config()
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
             { name = 'path' },
-            { name = 'buffer' },
+            { name = 'buffer', keyword_length = 3 },
         },
         formatting = {
             expandable_indicator = true,
