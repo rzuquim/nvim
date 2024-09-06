@@ -4,8 +4,9 @@
 --       this is a custom prop used only on this config, this is not canonical
 
 return {
-    bashls = require("langs.bash"),
-    html = require('langs.html'),
+    bashls = require('langs.bash'),
+    emmet_language_server = require('langs.html').emmet,
+    html = require('langs.html').html,
     lemminx = require('langs.xml'),
     lua_ls = require('langs.lua'),
     marksman = require('langs.markdown'),
