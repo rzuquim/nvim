@@ -2,10 +2,10 @@ local M = {}
 
 M.html = {
     settings = {},
-    extras_formatters = {
+    extra_formatters = {
         html = { 'prettier' },
     },
-    extras_treesitter = {
+    extra_treesitter = {
         'html',
     },
 }

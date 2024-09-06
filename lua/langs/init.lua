@@ -5,11 +5,16 @@
 
 return {
     bashls = require('langs.bash'),
+    clangd = require('langs.clang'),
+    cssls = require('langs.css'),
     emmet_language_server = require('langs.html').emmet,
     html = require('langs.html').html,
+    jdtls = require("langs.java"),
     lemminx = require('langs.xml'),
     lua_ls = require('langs.lua'),
     marksman = require('langs.markdown'),
+    omnisharp = require('langs.csharp'),
     rust_analyzer = require('langs.rust'),
+    taplo = require('langs.toml'),
     vtsls = require('langs.js'),
 }

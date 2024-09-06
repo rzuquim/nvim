@@ -2,8 +2,8 @@ local langs = require('langs')
 
 local treesitter_langs = {}
 for _, settings in pairs(langs) do
-    if settings.extras_treesitter then
-        for _, treesitter in ipairs(settings.extras_treesitter) do
+    if settings.extra_treesitter then
+        for _, treesitter in ipairs(settings.extra_treesitter) do
             table.insert(treesitter_langs, treesitter)
         end
     end

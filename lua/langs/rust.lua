@@ -1,8 +1,10 @@
 return {
-    lsp = 'rust_analyzer',
     settings = {
         diagnostics = {
             enable = false,
         },
+    },
+    extra_treesitter = {
+        'rust',
     },
 }

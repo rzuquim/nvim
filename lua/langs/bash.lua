@@ -1,8 +1,8 @@
 return {
-    extras_formatters = {
+    extra_formatters = {
         sh = { 'beautysh' },
     },
-    extras_treesitter = {
+    extra_treesitter = {
         'bash',
     },
 }

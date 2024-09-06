@@ -6,7 +6,7 @@ return {
         typescriptreact = { 'prettier' },
         json = { 'prettier' },
     },
-    extras_treesitter = {
+    extra_treesitter = {
         'javascript',
         'json',
         'tsx',
