@@ -47,8 +47,8 @@ keymap('i', '<S-Tab>', '<C-d>') -- untab with shift tab
 keymap('v', '<Tab>', '>gv') -- tab in visual mode
 keymap('v', '<S-Tab>', '<gv') -- untab in visual mode
 
-keymap('v', '<leader>s', ':Sort<CR>') -- sort the selected text
-keymap('v', '<leader>u', ':Sort u<CR>') -- eliminate duplicates and sort in the selected text
+keymap('v', '<leader>s', ':sort<CR>') -- sort the selected text
+keymap('v', '<leader>u', ':sort u<CR>') -- eliminate duplicates and sort in the selected text
 
 keymap('n', '<A-v>', ':vsplit<CR>:bnext<CR>') -- vertical split
 keymap('n', '<A-h>', ':split<CR>:bnext<CR>') -- horizontal split
