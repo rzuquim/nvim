@@ -101,14 +101,14 @@ end
 
 function M.oil()
     return {
-        ["<CR>"] = "actions.select",
-        ["<A-v>"] = { "actions.select", opts = { vertical = true } },
-        ["<A-h>"] = { "actions.select", opts = { horizontal = true } },
-        ["<Esc>"] = { callback = "actions.close", mode = "n" },
-        ["_"] = "actions.parent",
-        ["<C-_>"] = "actions.open_cwd",
-        ["<C-.>"] = "actions.toggle_hidden",
-        ["<A-p>"] = "actions.preview",
+        ['<CR>'] = 'actions.select',
+        ['<A-v>'] = { 'actions.select', opts = { vertical = true } },
+        ['<A-h>'] = { 'actions.select', opts = { horizontal = true } },
+        ['<Esc>'] = { callback = 'actions.close', mode = 'n' },
+        ['_'] = 'actions.parent',
+        ['<C-_>'] = 'actions.open_cwd',
+        ['<C-.>'] = 'actions.toggle_hidden',
+        ['<A-p>'] = 'actions.preview',
 
         -- ["<C-l>"] = "actions.refresh",
         -- ["`"] = "actions.cd",
@@ -133,6 +133,12 @@ function M.lsp(buf)
     keymap('n', 'K', vim.lsp.buf.hover, bufferScope)
     keymap('n', '<C-k>', vim.lsp.buf.signature_help, bufferScope)
     keymap('n', '<C-.>', vim.lsp.buf.code_action, bufferScope)
+end
+
+function M.format(conform)
+    keymap('n', '<leader>f', function()
+        conform.format({ async = true, lsp_fallback = true })
+    end)
 end
 
 return M
