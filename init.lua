@@ -15,5 +15,6 @@ plugins.setup('behavior.telescope')
 plugins.setup('behavior.conform')
 plugins.setup('behavior.multi_cursor')
 plugins.setup('behavior.autopairs')
+plugins.setup('behavior.comments')
 
 plugins.install()

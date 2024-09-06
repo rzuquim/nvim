@@ -141,4 +141,22 @@ function M.format(conform)
     end)
 end
 
+function M.comments()
+    return {
+        toggler = {
+            line = '<leader>cc',
+            block = '<leader>cb',
+        },
+        opleader = {
+            line = '<leader>cc',
+            block = '<leader>cb',
+        },
+        extra = {
+            above = '<leader>cO',
+            below = '<leader>co',
+            eol = '<leader>cA',
+        },
+    }
+end
+
 return M
