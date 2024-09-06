@@ -28,7 +28,7 @@ keymap('n', '<C-Left>', '<C-w>h') -- focus left
 keymap('n', '<C-Right>', '<C-w>l') -- focus right
 keymap('n', '<A-->', ':vertical resize -2<CR>') -- resize left
 keymap('n', '<A-+>', ':vertical resize +2<CR>') -- resize right
-keymap('n', '<C-w>', ':Bdelete!<CR>') -- close buffer
+keymap('n', '<C-w>', ':w<CR>:bd<CR>') -- close buffer
 keymap('n', '<leader>ww', ':wqa!<CR>') -- Quit everything writing all buffers to the disk
 keymap('n', '<leader>we', ':%bd|e#<CR>') -- closes every buffer but the current one
 
