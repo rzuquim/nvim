@@ -22,10 +22,10 @@ keymap('n', '/', 'q/i') -- always open command mode with history
 -- ----------------------
 -- Window management
 -- ----------------------
-keymap('n', '<C-Up>', '<C-w>k') -- focus up
-keymap('n', '<C-Down>', '<C-w>j') -- focus down
-keymap('n', '<C-Left>', '<C-w>h') -- focus left
-keymap('n', '<C-Right>', '<C-w>l') -- focus right
+keymap('n', '<C-k>', '<C-w>k') -- focus up
+keymap('n', '<C-j>', '<C-w>j') -- focus down
+keymap('n', '<C-h>', '<C-w>h') -- focus left
+keymap('n', '<C-l>', '<C-w>l') -- focus right
 keymap('n', '<A-->', ':vertical resize -2<CR>') -- resize left
 keymap('n', '<A-+>', ':vertical resize +2<CR>') -- resize right
 keymap('n', '<C-w>', ':w<CR>:bd<CR>') -- close buffer
@@ -130,8 +130,8 @@ function M.lsp(buf)
     keymap('n', '<F24>', telescope_builtin.lsp_references, bufferScope)
 
     -- signature and help
-    keymap('n', 'K', vim.lsp.buf.hover, bufferScope)
-    keymap('n', '<C-k>', vim.lsp.buf.signature_help, bufferScope)
+    keymap('n', '?', vim.lsp.buf.hover, bufferScope)
+    keymap('n', '<leader>?', vim.lsp.buf.signature_help, bufferScope)
     keymap('n', '<C-.>', vim.lsp.buf.code_action, bufferScope)
 end
 
