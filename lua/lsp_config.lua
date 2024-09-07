@@ -24,9 +24,11 @@ function M.config()
     local mason_installer = require('mason-tool-installer')
     local mason_lsp = require('mason-lspconfig')
     local lspconfig = require('lspconfig')
+    local cmp_nvim_lsp = require('cmp_nvim_lsp')
+    local icons = require('appearance.icons')
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
     mason.setup()
     mason_installer.setup({ ensure_installed = langs.ensure_installed() })
@@ -50,6 +52,17 @@ function M.config()
         callback = function(event)
             keymaps.lsp(event.buf)
         end,
+    })
+
+    vim.diagnostic.config({
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = icons.diagnostics.BoldError,
+                [vim.diagnostic.severity.WARN] = icons.diagnostics.BoldWarning,
+                [vim.diagnostic.severity.INFO] = icons.diagnostics.BoldInformation,
+                [vim.diagnostic.severity.HINT] = icons.diagnostics.BoldHint,
+            },
+        },
     })
 end
 
