@@ -3,7 +3,7 @@
 --       so in each file you will find props with a 'extra_' prefix
 --       this is a custom prop used only on this config, this is not canonical
 
-return {
+local M = {
     bashls = require('langs.bash'),
     clangd = require('langs.clang'),
     cssls = require('langs.css'),
@@ -17,4 +17,7 @@ return {
     rust_analyzer = require('langs.rust'),
     taplo = require('langs.toml'),
     vtsls = require('langs.js'),
+
 }
+
+return M
