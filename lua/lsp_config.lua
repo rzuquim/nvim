@@ -7,6 +7,7 @@ local M = {
         { 'j-hui/fidget.nvim', opts = {} }, -- pretty loading
         { 'folke/neodev.nvim', opts = {} }, -- lua, lsp and vim types
         'nvim-lua/plenary.nvim',
+        'b0o/schemastore.nvim',
     },
 }
 
@@ -25,6 +26,7 @@ function M.config()
     local lspconfig = require('lspconfig')
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
     mason.setup()
     mason_installer.setup({ ensure_installed = langs.ensure_installed() })
@@ -34,7 +36,11 @@ function M.config()
             function(lang)
                 local server = langs[lang] or {}
                 server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-                lspconfig[lang].setup(server)
+                if server.extra_settings then
+                    lspconfig[lang].setup(server.extra_settings())
+                else
+                    lspconfig[lang].setup(server)
+                end
             end,
         },
     })

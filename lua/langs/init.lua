@@ -15,6 +15,7 @@ local M = {
     emmet_language_server = require('langs.html').emmet,
     html = require('langs.html').html,
     jdtls = require('langs.java'),
+    jsonls = require('langs.json'),
     lemminx = require('langs.xml'),
     lua_ls = require('langs.lua'),
     marksman = require('langs.markdown'),
