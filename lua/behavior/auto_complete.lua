@@ -39,7 +39,7 @@ function M.config()
             end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
-        mapping = cmp.mapping.preset.insert(keymaps.cmp(cmp, luasnip)),
+        mapping = keymaps.cmp(cmp, luasnip),
         sources = {
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
