@@ -32,12 +32,12 @@ local M = {
     event = 'VeryLazy',
     opts = {
         options = {
-            disabled_filetypes = { 'oil' },
+            disabled_filetypes = { 'oil', 'gitsigns-blame' },
         },
         sections = {
             lualine_a = { currentProject },
             lualine_b = { 'branch', 'diff', 'diagnostics' },
-            lualine_c = { { "macro_recording", fmt = show_macro_recording }, "mode", "filename" },
+            lualine_c = { { 'macro_recording', fmt = show_macro_recording }, 'mode', 'filename' },
             lualine_x = { 'encoding', 'filetype' },
             lualine_y = { 'progress' },
             lualine_z = { 'location' },
