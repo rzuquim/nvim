@@ -30,7 +30,7 @@ local M = {
         },
 
         on_attach = function(buf)
-            keymaps = keymaps.git(buf, toggle_blame)
+            keymaps.git(buf, toggle_blame)
         end,
     },
 }
