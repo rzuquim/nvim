@@ -1,3 +1,5 @@
+local keymaps = require('keymaps')
+
 local M = {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -23,7 +25,7 @@ function M.config()
     pcall(require('telescope').load_extension, 'ui-select')
 
     local telescope_builtin = require('telescope.builtin')
-    KEYMAPS.telescope(telescope_builtin)
+    keymaps.telescope(telescope_builtin)
 end
 
 return M

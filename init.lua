@@ -1,7 +1,7 @@
 require('options')
 require('autocmds')
+require('keymaps')
 
-KEYMAPS = require('keymaps')
 local plugins = require('plugin_manager')
 
 plugins.setup('lsp_config')

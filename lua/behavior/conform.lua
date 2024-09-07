@@ -1,4 +1,5 @@
 local langs = require('langs')
+local keymaps = require('keymaps')
 
 local formatters_by_ft = {}
 for _, settings in pairs(langs) do
@@ -32,7 +33,7 @@ function M.config()
 
         formatters_by_ft = formatters_by_ft,
     })
-    KEYMAPS.format(conform)
+    keymaps.format(conform)
 end
 
 return M

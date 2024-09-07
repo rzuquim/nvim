@@ -1,3 +1,5 @@
+local keymaps = require('keymaps')
+
 local M = {
     'stevearc/oil.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -5,7 +7,7 @@ local M = {
 
 function M.config()
     require('oil').setup({
-        keymaps = KEYMAPS.oil(),
+        keymaps = keymaps.oil(),
         use_default_keymaps = false,
     })
 end

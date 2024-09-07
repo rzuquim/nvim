@@ -1,3 +1,5 @@
+local keymaps = require('keymaps')
+
 local M = {
     'numToStr/Comment.nvim',
     lazy = false,
@@ -10,9 +12,11 @@ local M = {
 }
 
 function M.config()
-    local prehook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
-    require('Comment').setup(vim.tbl_deep_extend('force', KEYMAPS.comments(), {
-        pre_hook = prehook,
+    local comment = require('Comment')
+    local ts_comment = require('ts_context_commentstring.integrations.comment_nvim')
+
+    comment.setup(vim.tbl_deep_extend('force', keymaps.comments(), {
+        pre_hook = ts_comment.create_pre_hook(),
     }))
 end
 

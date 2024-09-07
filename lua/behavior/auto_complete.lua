@@ -1,3 +1,5 @@
+local keymaps = require('keymaps')
+
 local M = {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -26,6 +28,8 @@ local icons = require('appearance.icons')
 function M.config()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
+    local vscode_snippets = require('luasnip/loaders/from_vscode')
+
     luasnip.config.setup({})
 
     cmp.setup({
@@ -35,7 +39,7 @@ function M.config()
             end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
-        mapping = cmp.mapping.preset.insert(KEYMAPS.cmp(cmp, luasnip)),
+        mapping = cmp.mapping.preset.insert(keymaps.cmp(cmp, luasnip)),
         sources = {
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
@@ -59,8 +63,8 @@ function M.config()
         },
     })
 
-    require('luasnip/loaders/from_vscode').lazy_load()
-    require('luasnip').filetype_extend('typescriptreact', { 'html' })
+    vscode_snippets.lazy_load()
+    luasnip.filetype_extend('typescriptreact', { 'html' })
 end
 
 return M

@@ -11,6 +11,7 @@ local M = {
 }
 
 local langs = require('langs')
+local keymaps = require('keymaps')
 local ensure_installed = {}
 
 function M.config()
@@ -32,7 +33,7 @@ function M.config()
     vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('keymaps-lsp-attach', { clear = true }),
         callback = function(event)
-            KEYMAPS.lsp(event.buf)
+            keymaps.lsp(event.buf)
         end,
     })
 end
