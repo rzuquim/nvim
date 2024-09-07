@@ -19,5 +19,6 @@ plugins.setup('behavior.multi_cursor')
 plugins.setup('behavior.autopairs')
 plugins.setup('behavior.comments')
 plugins.setup('behavior.auto_complete')
+plugins.setup('behavior.mini_helpers')
 
 plugins.install()
