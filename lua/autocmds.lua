@@ -6,6 +6,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
+-- NOTE: enabling text wrap and spell check when it matters
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+    pattern = { 'gitcommit', 'markdown', 'text' },
+    group = vim.api.nvim_create_augroup('text-editing-settings', { clear = true }),
+    callback = function()
+        vim.opt_local.wrap = true
+        vim.opt_local.spell = true
+    end,
+})
+
 vim.api.nvim_create_autocmd('CmdwinEnter', {
     desc = 'Quitting command and search mode with ESC',
     group = vim.api.nvim_create_augroup('quit-cmd-with-esc', { clear = true }),
