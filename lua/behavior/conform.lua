@@ -1,15 +1,6 @@
 local langs = require('langs')
 local keymaps = require('keymaps')
 
-local formatters_by_ft = {}
-for _, settings in pairs(langs) do
-    if settings.extra_formatters then
-        for ft, formatter in pairs(settings.extra_formatters) do
-            formatters_by_ft[ft] = formatter
-        end
-    end
-end
-
 local M = {
     'stevearc/conform.nvim',
     lazy = false,
@@ -31,7 +22,7 @@ function M.config()
             }
         end, ]]
 
-        formatters_by_ft = formatters_by_ft,
+        formatters_by_ft = langs.formatters_by_ft(),
     })
     keymaps.format(conform)
 end

@@ -1,20 +1,11 @@
 local langs = require('langs')
 
-local treesitter_langs = {}
-for _, settings in pairs(langs) do
-    if settings.extra_treesitter then
-        for _, treesitter in ipairs(settings.extra_treesitter) do
-            table.insert(treesitter_langs, treesitter)
-        end
-    end
-end
-
 local M = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
         -- TODO: "c", "diff", "html", "markdown", "vim", "vimdoc"
-        ensure_installed = treesitter_langs,
+        ensure_installed = langs.treesitter(),
         auto_install = true,
         highlight = {
             enable = true,

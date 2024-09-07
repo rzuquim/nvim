@@ -12,20 +12,29 @@ local M = {
 
 local langs = require('langs')
 local keymaps = require('keymaps')
-local ensure_installed = {}
+local plugins = require('plugin_manager')
+
+for _, plugin in pairs(langs.extra_plugins()) do
+    plugins.setup(plugin)
+end
 
 function M.config()
+    local mason = require('mason')
+    local mason_installer = require('mason-tool-installer')
+    local mason_lsp = require('mason-lspconfig')
+    local lspconfig = require('lspconfig')
+
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-    require('mason').setup()
-    require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
+    mason.setup()
+    mason_installer.setup({ ensure_installed = langs.ensure_installed() })
 
-    require('mason-lspconfig').setup({
+    mason_lsp.setup({
         handlers = {
             function(lang)
                 local server = langs[lang] or {}
                 server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-                require('lspconfig')[lang].setup(server)
+                lspconfig[lang].setup(server)
             end,
         },
     })
@@ -36,18 +45,6 @@ function M.config()
             keymaps.lsp(event.buf)
         end,
     })
-end
-
-for lang, settings in pairs(langs) do
-    table.insert(ensure_installed, lang)
-
-    if settings.extra_formatters then
-        for _, formattersByFileType in pairs(settings.extra_formatters) do
-            for _, formatter in ipairs(formattersByFileType) do
-                table.insert(ensure_installed, formatter)
-            end
-        end
-    end
 end
 
 return M

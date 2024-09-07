@@ -1,9 +1,9 @@
-local M = {}
-
-local plugin_specs = {}
+local M = {
+    plugin_specs = {}
+}
 
 function M.setup(specs)
-    table.insert(plugin_specs, { import = specs })
+    table.insert(M.plugin_specs, { import = specs })
 end
 
 function M.install()
@@ -14,7 +14,7 @@ function M.install()
     end ---@diagnostic disable-next-line: undefined-field
     vim.opt.rtp:prepend(lazypath)
 
-    require('lazy').setup(plugin_specs)
+    require('lazy').setup(M.plugin_specs)
 end
 
 return M

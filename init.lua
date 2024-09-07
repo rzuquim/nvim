@@ -19,5 +19,4 @@ plugins.setup('behavior.autopairs')
 plugins.setup('behavior.comments')
 plugins.setup('behavior.auto_complete')
 
-
 plugins.install()
