@@ -93,7 +93,7 @@ function M.telescope(telescope_builtin)
     keymap('n', '<leader>/w', telescope_builtin.grep_string)
     keymap('n', '<leader>//', telescope_builtin.live_grep)
     keymap('n', '<leader>/d', telescope_builtin.diagnostics)
-    keymap('n', '<leader>/t', ':TodoTelescope<CR>')
+    keymap('n', '<leader>/t', ':TodoTelescope keywords=TODO,FIX,BUG,ISSUE,TEST<CR>')
     keymap('n', '<leader><leader>', telescope_builtin.buffers)
 end
 
