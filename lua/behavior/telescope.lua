@@ -9,7 +9,7 @@ local M = {
         { 'nvim-telescope/telescope-ui-select.nvim' },
         { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
         {
-            -- NOTE: see telescope-fzf-native on 
+            -- NOTE: see telescope-fzf-native on
             --       https://github.com/nvim-lua/kickstart.nvim/?tab=readme-ov-file#windows-installation
             'nvim-telescope/telescope-fzf-native.nvim',
             build = 'make',
@@ -24,8 +24,14 @@ function M.config()
     local telescope = require('telescope')
     local telescope_builtin = require('telescope.builtin')
     local telescope_themes = require('telescope.themes')
+    local telescope_actions = require('telescope.actions')
+
+    local mappings = keymaps.telescope(telescope_builtin, telescope_actions)
 
     telescope.setup({
+        defaults = {
+            mappings = mappings,
+        },
         extensions = {
             ['ui-select'] = { telescope_themes.get_dropdown() },
         },
@@ -34,8 +40,6 @@ function M.config()
     -- Enable Telescope extensions if they are installed
     pcall(telescope.load_extension, 'fzf')
     pcall(telescope.load_extension, 'ui-select')
-
-    keymaps.telescope(telescope_builtin)
 end
 
 return M

@@ -86,7 +86,7 @@ keymap('n', '<leader>ef', vim.diagnostic.open_float)
 
 local M = {}
 
-function M.telescope(telescope_builtin)
+function M.telescope(telescope_builtin, telescope_actions)
     keymap('n', '<C-p>', telescope_builtin.find_files)
     keymap('n', '<leader>/h', telescope_builtin.help_tags)
     keymap('n', '<leader>/k', telescope_builtin.keymaps)
@@ -95,6 +95,36 @@ function M.telescope(telescope_builtin)
     keymap('n', '<leader>/d', telescope_builtin.diagnostics)
     keymap('n', '<leader>/t', ':TodoTelescope keywords=TODO,FIX,BUG,ISSUE,TEST<CR>')
     keymap('n', '<leader><leader>', telescope_builtin.buffers)
+
+    -- NOTE: returns the keymaps inside the telescope prompt
+    local common_bindings = {
+        ['<C-n>'] = telescope_actions.cycle_history_next,
+        ['<C-p>'] = telescope_actions.cycle_history_prev,
+
+        ['<C-k>'] = telescope_actions.preview_scrolling_up,
+        ['<C-j>'] = telescope_actions.preview_scrolling_down,
+
+        ['<C-q>'] = telescope_actions.send_to_qflist + telescope_actions.open_qflist,
+
+        ['<A-h>'] = telescope_actions.select_horizontal,
+        ['<A-v>'] = telescope_actions.select_vertical,
+    }
+
+    return {
+        i = common_bindings,
+
+        n = vim.tbl_deep_extend('force', {}, common_bindings, {
+            ['<ESC>'] = telescope_actions.close,
+            ['<CR>'] = telescope_actions.select_default,
+
+            ['<Down>'] = telescope_actions.move_selection_next,
+            ['<Up>'] = telescope_actions.move_selection_previous,
+            ['j'] = telescope_actions.move_selection_next,
+            ['k'] = telescope_actions.move_selection_previous,
+            ['gg'] = telescope_actions.move_to_top,
+            ['G'] = telescope_actions.move_to_bottom,
+        }),
+    }
 end
 
 function M.oil()
