@@ -23,6 +23,11 @@ local M = {
     rust_analyzer = require('langs.rust'),
     taplo = require('langs.toml'),
     vtsls = require('langs.js'),
+    -- TODO: dockerfile
+    -- TODO: gitignore
+    -- TODO: sql
+    -- TODO: toml
+    -- TODO: yaml
 
     -- exposing resolved resources
     ensure_installed = function()
