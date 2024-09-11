@@ -50,8 +50,8 @@ keymap('v', '<S-Tab>', '<gv') -- untab in visual mode
 keymap('v', '<leader>s', ':sort<CR>') -- sort the selected text
 keymap('v', '<leader>u', ':sort u<CR>') -- eliminate duplicates and sort in the selected text
 
-keymap('n', '<A-v>', ':vsplit<CR>:bnext<CR>') -- vertical split
-keymap('n', '<A-h>', ':split<CR>:bnext<CR>') -- horizontal split
+keymap('n', '<leader>xv', ':vsplit<CR>:bnext<CR>') -- vertical split
+keymap('n', '<leader>xh', ':split<CR>:bnext<CR>') -- horizontal split
 
 -- don't lose selection when indenting
 keymap('v', '<', '<gv')
@@ -112,8 +112,8 @@ function M.telescope(telescope_builtin, telescope_actions)
 
         ['<C-q>'] = telescope_actions.send_to_qflist + telescope_actions.open_qflist,
 
-        ['<A-h>'] = telescope_actions.select_horizontal,
-        ['<A-v>'] = telescope_actions.select_vertical,
+        ['<leader>xh'] = telescope_actions.select_horizontal,
+        ['<leader>xv'] = telescope_actions.select_vertical,
     }
 
     return {
