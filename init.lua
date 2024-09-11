@@ -19,6 +19,7 @@ plugins.setup('appearance.trouble')
 
 plugins.setup('behavior.telescope')
 plugins.setup('behavior.conform')
+plugins.setup('behavior.lint')
 plugins.setup('behavior.multi_cursor')
 plugins.setup('behavior.autopairs')
 plugins.setup('behavior.comments')

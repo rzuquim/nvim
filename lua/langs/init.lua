@@ -5,6 +5,8 @@
 
 local ensure_installed = {}
 local formatters_by_ft = {}
+local linters_by_ft = {}
+local lint_conditions = {}
 local treesitter_langs = {}
 local extra_plugins = {}
 
@@ -38,6 +40,14 @@ local M = {
         return formatters_by_ft
     end,
 
+    linters_by_ft = function()
+        return linters_by_ft
+    end,
+
+    lint_conditions = function()
+        return lint_conditions
+    end,
+
     treesitter = function()
         return treesitter_langs
     end,
@@ -57,6 +67,28 @@ for lang, settings in pairs(M) do
 
                 for _, formatter in ipairs(formattersByFileType) do
                     table.insert(ensure_installed, formatter)
+                end
+            end
+        end
+
+        if settings.extra_linters then
+            for ft, linters in pairs(settings.extra_linters) do
+                local actual_linters = {}
+                local conditions = {}
+                for _, linter in ipairs(linters) do
+                    if type(linter) == 'function' then
+                        table.insert(conditions, linter)
+                    else
+                        table.insert(actual_linters, linter)
+                    end
+                end
+
+                if #actual_linters > 0 then
+                    linters_by_ft[ft] = actual_linters
+                end
+
+                if #conditions > 0 then
+                    lint_conditions[ft] = conditions
                 end
             end
         end
