@@ -16,4 +16,12 @@ function M.close_buffers_by_type(buffer_type)
     end
 end
 
+function M.close_curr_buffer()
+    if vim.bo.modified then
+        vim.cmd('write')
+    end
+
+    vim.cmd('bdelete')
+end
+
 return M
