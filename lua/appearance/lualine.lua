@@ -1,3 +1,5 @@
+local util = require('util')
+
 local pwd = vim.fn.getcwd()
 local last_dir = ''
 if vim.fn.has('win32') == 1 then
@@ -32,7 +34,7 @@ local M = {
     event = 'VeryLazy',
     opts = {
         options = {
-            disabled_filetypes = { 'oil', 'gitsigns-blame' },
+            disabled_filetypes = util.system_file_types
         },
         sections = {
             lualine_a = { currentProject },

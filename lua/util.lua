@@ -1,4 +1,6 @@
-local M = {}
+local M = {
+    system_file_types = { 'oil', 'gitsigns-blame', 'harpoon' },
+}
 
 function M.close_buffers_by_type(buffer_type)
     local buffers = vim.api.nvim_list_bufs()
