@@ -25,6 +25,7 @@ plugins.setup('behavior.autopairs')
 plugins.setup('behavior.comments')
 plugins.setup('behavior.auto_complete')
 plugins.setup('behavior.mini_helpers')
+plugins.setup('behavior.harpoon')
 plugins.setup('behavior.auto_save')
 
 plugins.install()
