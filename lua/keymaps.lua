@@ -78,10 +78,14 @@ keymap('n', '<C-u>', '<C-u>zz')
 keymap('n', '<A-Left>', '<C-O>')
 keymap('n', '<A-Right>', '<C-I>')
 
--- issues
+-- ----------------------
+-- Issues
+-- ----------------------
 keymap('n', '<C-e>', vim.diagnostic.goto_prev)
 keymap('n', '<C-E>', vim.diagnostic.goto_next)
-keymap('n', '<leader>ee', vim.diagnostic.setloclist)
+keymap('n', '<leader>ee', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>')
+keymap('n', '<leader>ew', '<cmd>Trouble diagnostics toggle<CR>')
+keymap('n', '<leader>et', '<cmd>Trouble todo toggle<CR>')
 keymap('n', '<leader>ef', vim.diagnostic.open_float)
 
 local M = {}
