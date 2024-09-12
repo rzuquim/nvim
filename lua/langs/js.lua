@@ -1,5 +1,5 @@
 local function extra_condition()
-    local cwd = vim.fn.getcwd() -- Get the current working directory
+    local cwd = vim.fn.getcwd()
     local eslint_config = cwd .. '/eslint.config.js'
 
     local stat = vim.loop.fs_stat(eslint_config)

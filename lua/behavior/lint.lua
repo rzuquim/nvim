@@ -16,8 +16,8 @@ function M.config()
         callback = function(ev)
             local ft = vim.bo.filetype
             if lint_conditions_by_ft[ft] then
-                if lint.linters_by_ft[ft].extra_condition then
-                    if not lint.linters_by_ft[ft].extra_condition(ev) then
+                for _, condition in ipairs(lint_conditions_by_ft[ft]) do
+                    if not condition(ev) then
                         return
                     end
                 end
