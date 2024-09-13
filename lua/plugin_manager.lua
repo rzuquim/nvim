@@ -2,8 +2,12 @@ local M = {
     plugin_specs = {}
 }
 
-function M.setup(specs)
-    table.insert(M.plugin_specs, { import = specs })
+function M.setup(specs, literal)
+    if literal then
+        table.insert(M.plugin_specs, specs)
+    else
+        table.insert(M.plugin_specs, { import = specs })
+    end
 end
 
 function M.install()

@@ -2,6 +2,7 @@ require('options')
 require('autocmds')
 require('keymaps')
 
+local langs = require('langs')
 local plugins = require('plugin_manager')
 
 plugins.setup('lsp_config')
@@ -27,5 +28,9 @@ plugins.setup('behavior.auto_complete')
 plugins.setup('behavior.mini_helpers')
 plugins.setup('behavior.harpoon')
 plugins.setup('behavior.auto_save')
+
+for _, plugin in pairs(langs.extra_plugins()) do
+    plugins.setup(plugin, true)
+end
 
 plugins.install()

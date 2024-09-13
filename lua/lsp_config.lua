@@ -15,10 +15,6 @@ local langs = require('langs')
 local keymaps = require('keymaps')
 local plugins = require('plugin_manager')
 
-for _, plugin in pairs(langs.extra_plugins()) do
-    plugins.setup(plugin)
-end
-
 function M.config()
     local mason = require('mason')
     local mason_installer = require('mason-tool-installer')
