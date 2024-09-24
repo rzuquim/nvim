@@ -14,7 +14,9 @@ local M = {
         },
         indent = {
             enable = true,
-            -- disable = { "ruby" }
+            disable = {
+                'liquid', -- FIX: use ident on liquid files
+            },
         },
     },
 }
