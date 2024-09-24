@@ -8,7 +8,7 @@ return {
         'scss',
     },
     extra_formatters = {
-        css = { 'prettier' },
-        scss = { 'prettier' },
+        css = { 'prettierd' },
+        scss = { 'prettierd' },
     },
 }

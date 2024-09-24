@@ -25,8 +25,8 @@ return {
         }
     end,
     extra_formatters = {
-        json = { 'prettier' },
-        jsonc = { 'prettier' },
+        json = { 'prettierd' },
+        jsonc = { 'prettierd' },
     },
     extra_treesitter = {
         'json',

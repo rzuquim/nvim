@@ -3,10 +3,11 @@ local M = {}
 M.html = {
     settings = {},
     extra_formatters = {
-        html = { 'prettier' },
+        html = { 'prettierd' },
     },
     extra_treesitter = {
         'html',
+        'liquid',
     },
 }
 

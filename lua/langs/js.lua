@@ -8,10 +8,10 @@ end
 
 return {
     extra_formatters = {
-        javascript = { 'prettier' },
-        javascriptreact = { 'prettier' },
-        typescript = { 'prettier' },
-        typescriptreact = { 'prettier' },
+        javascript = { 'prettierd' },
+        javascriptreact = { 'prettierd' },
+        typescript = { 'prettierd' },
+        typescriptreact = { 'prettierd' },
     },
     extra_linters = {
         javascript = { 'eslint_d', extra_condition },
