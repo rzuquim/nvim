@@ -13,7 +13,6 @@ end
 -- ----------------------
 -- MISC
 -- ----------------------
-keymap('n', '<Esc>', '<cmd>nohlsearch<CR>')
 keymap('n', '+', '<C-a>')
 keymap('n', '-', '<C-x>')
 keymap('n', 'Y', 'y$') -- make Y behave like D and C, yanking till end of line
@@ -276,6 +275,25 @@ function M.harpoon()
     keymap('n', ',a', function()
         ui.nav_file(4)
     end)
+end
+
+function M.multicursor(mc)
+    keymap({ 'n', 'v' }, '<C-n>', function()
+        mc.addCursor('*')
+    end)
+
+    keymap('n', '<ESC>', function()
+        if not mc.cursorsEnabled() then
+            mc.enableCursors()
+        elseif mc.hasCursors() then
+            mc.clearCursors()
+        end
+        vim.cmd('nohlsearch')
+    end)
+
+    keymap("v", "I", mc.insertVisual)
+    keymap("v", "A", mc.appendVisual)
+    keymap("v", "S", mc.splitCursors)
 end
 
 return M
