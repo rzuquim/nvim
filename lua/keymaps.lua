@@ -19,6 +19,8 @@ keymap('n', 'Y', 'y$') -- make Y behave like D and C, yanking till end of line
 keymap('n', 'X', '0d$jw') -- Erase line
 keymap('n', '<C-;>', 'q:i') -- cmd mode with history
 keymap('n', '<C-/>', 'q/i') -- cmd mode with history
+keymap('n', 'Q', 'qq^') -- i never use more than one macro and I dont quit with Q
+keymap('n', '@', '@q')
 
 -- ----------------------
 -- Window management
