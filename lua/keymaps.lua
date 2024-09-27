@@ -17,8 +17,8 @@ keymap('n', '+', '<C-a>')
 keymap('n', '-', '<C-x>')
 keymap('n', 'Y', 'y$') -- make Y behave like D and C, yanking till end of line
 keymap('n', 'X', '0d$jw') -- Erase line
-keymap('n', ':', 'q:i') -- always open command mode with history
-keymap('n', '/', 'q/i') -- always open command mode with history
+keymap('n', '<C-;>', 'q:i') -- cmd mode with history
+keymap('n', '<C-/>', 'q/i') -- cmd mode with history
 
 -- ----------------------
 -- Window management
