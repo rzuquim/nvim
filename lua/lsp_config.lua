@@ -13,7 +13,6 @@ local M = {
 
 local langs = require('langs')
 local keymaps = require('keymaps')
-local plugins = require('plugin_manager')
 
 function M.config()
     local mason = require('mason')

@@ -1,16 +1,6 @@
 return {
     extra_settings = function()
-        local schemas = require('schemastore').json.schemas({
-            select = {
-                'package.json',
-                'tsconfig.json',
-                'babelrc.json',
-                '.eslintrc',
-                'prettierrc.json',
-                'launchsettings.json',
-                '.vsconfig',
-            },
-        })
+        local schemas = require('schemastore').json.schemas()
         return {
             init_options = {
                 provideFormatter = false,
