@@ -83,14 +83,18 @@ keymap('n', '<A-Left>', '<C-O>')
 keymap('n', '<A-Right>', '<C-I>')
 
 -- ----------------------
--- Issues
+-- Diagnostics
 -- ----------------------
+local lsp_lines_enabled = true
 keymap('n', '<C-e>', vim.diagnostic.goto_prev)
 keymap('n', '<C-E>', vim.diagnostic.goto_next)
 keymap('n', '<leader>ee', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>')
 keymap('n', '<leader>ew', '<cmd>Trouble diagnostics toggle<CR>')
-keymap('n', '<leader>et', '<cmd>Trouble todo toggle<CR>')
 keymap('n', '<leader>ef', vim.diagnostic.open_float)
+keymap('n', '<leader>et', function()
+    lsp_lines_enabled = not lsp_lines_enabled
+    vim.diagnostic.config({ virtual_lines = lsp_lines_enabled, virtual_text = not lsp_lines_enabled })
+end)
 
 local M = {}
 
@@ -294,9 +298,9 @@ function M.multicursor(mc)
         vim.cmd('nohlsearch')
     end)
 
-    keymap("v", "I", mc.insertVisual)
-    keymap("v", "A", mc.appendVisual)
-    keymap("v", "S", mc.splitCursors)
+    keymap('v', 'I', mc.insertVisual)
+    keymap('v', 'A', mc.appendVisual)
+    keymap('v', 'S', mc.splitCursors)
 end
 
 return M

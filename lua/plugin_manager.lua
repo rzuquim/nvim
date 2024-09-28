@@ -1,5 +1,6 @@
 local M = {
-    plugin_specs = {}
+    plugin_specs = {},
+    change_detection = { notify = false },
 }
 
 function M.setup(specs, literal)

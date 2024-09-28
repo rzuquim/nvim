@@ -73,7 +73,9 @@ local M = {
             lualine_c = { { 'macro_recording', fmt = show_macro_recording }, 'mode', 'filename' },
             lualine_x = { 'encoding', 'filetype' },
             lualine_y = { 'progress' },
-            lualine_z = { 'location' },
+            lualine_z = {
+                { 'location', color = { bg = bg_color }, separator = { left = '' } },
+            },
         },
     },
 }
