@@ -17,6 +17,7 @@ plugins.setup('appearance.colorizer')
 plugins.setup('appearance.dressing')
 plugins.setup('appearance.indent_guides')
 plugins.setup('appearance.trouble')
+plugins.setup('appearance.lsp_lines')
 
 plugins.setup('behavior.telescope')
 plugins.setup('behavior.conform')
@@ -34,3 +35,4 @@ for _, plugin in pairs(langs.extra_plugins()) do
 end
 
 plugins.install()
+
