@@ -29,6 +29,7 @@ plugins.setup('behavior.auto_complete')
 plugins.setup('behavior.mini_helpers')
 plugins.setup('behavior.harpoon')
 plugins.setup('behavior.auto_save')
+plugins.setup('behavior.tmux')
 
 for _, plugin in pairs(langs.extra_plugins()) do
     plugins.setup(plugin, true)
