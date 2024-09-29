@@ -86,8 +86,8 @@ keymap('n', '<A-Right>', '<C-I>')
 -- Diagnostics
 -- ----------------------
 local lsp_lines_enabled = true
-keymap('n', '<C-e>', vim.diagnostic.goto_prev)
-keymap('n', '<C-E>', vim.diagnostic.goto_next)
+keymap('n', 'E', vim.diagnostic.goto_prev)
+keymap('n', 'e', vim.diagnostic.goto_next)
 keymap('n', '<leader>ee', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>')
 keymap('n', '<leader>ew', '<cmd>Trouble diagnostics toggle<CR>')
 keymap('n', '<leader>ef', vim.diagnostic.open_float)
@@ -172,7 +172,7 @@ function M.lsp(buf)
     -- signature and help
     keymap('n', '?', vim.lsp.buf.hover, bufferScope)
     keymap('n', '<leader>?', vim.lsp.buf.signature_help, bufferScope)
-    keymap('n', '<C-.>', vim.lsp.buf.code_action, bufferScope)
+    keymap('n', 't', vim.lsp.buf.code_action, bufferScope)
 end
 
 function M.format(conform)
