@@ -1,4 +1,5 @@
 local util = require('util')
+local theme = require('appearance.theme')
 
 local pwd = vim.fn.getcwd()
 local last_dir = ''
@@ -22,17 +23,33 @@ local r = bit.rshift(bit.band(hash, 0xFF0000), 16)
 local g = bit.rshift(bit.band(hash, 0x00FF00), 8)
 local b = bit.band(hash, 0x0000FF)
 
-local brightness_threshold = 128 -- 0x80
-if r < brightness_threshold then
-    r = r + brightness_threshold
-end
+-- NOTE: making sure in light theme the bg color is dark
+if theme.theme == 'dark' then
+    local brightness_threshold = 128 -- 0x80
+    if r < brightness_threshold then
+        r = r + brightness_threshold
+    end
 
-if g < brightness_threshold then
-    g = g + brightness_threshold
-end
+    if g < brightness_threshold then
+        g = g + brightness_threshold
+    end
 
-if b < brightness_threshold then
-    b = b + brightness_threshold
+    if b < brightness_threshold then
+        b = b + brightness_threshold
+    end
+else
+    local brightness_threshold = 64 -- 0x40
+    if r > brightness_threshold then
+        r = r - brightness_threshold
+    end
+
+    if g > brightness_threshold then
+        g = g - brightness_threshold
+    end
+
+    if b > brightness_threshold then
+        b = b - brightness_threshold
+    end
 end
 
 local bg_color = string.format('#%02x%02x%02x', r, g, b)
