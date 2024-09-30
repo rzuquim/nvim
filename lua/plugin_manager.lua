@@ -1,6 +1,5 @@
 local M = {
     plugin_specs = {},
-    change_detection = { notify = false },
 }
 
 function M.setup(specs, literal)
@@ -19,7 +18,7 @@ function M.install()
     end ---@diagnostic disable-next-line: undefined-field
     vim.opt.rtp:prepend(lazypath)
 
-    require('lazy').setup(M.plugin_specs)
+    require('lazy').setup(M.plugin_specs, { change_detection = { notify = false, enable = false } })
 end
 
 return M

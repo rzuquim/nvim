@@ -85,11 +85,10 @@ keymap('n', '<A-Right>', '<C-I>')
 -- ----------------------
 -- Diagnostics
 -- ----------------------
-local lsp_lines_enabled = true
+local lsp_lines_enabled = false
 keymap('n', 'E', vim.diagnostic.goto_prev)
 keymap('n', 'e', vim.diagnostic.goto_next)
-keymap('n', '<leader>ee', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>')
-keymap('n', '<leader>ew', '<cmd>Trouble diagnostics toggle<CR>')
+keymap('n', '<leader>ee', '<cmd>Trouble diagnostics toggle<CR>')
 keymap('n', '<leader>ef', vim.diagnostic.open_float)
 keymap('n', '<leader>et', function()
     lsp_lines_enabled = not lsp_lines_enabled
@@ -98,14 +97,16 @@ end)
 
 local M = {}
 
-function M.telescope(telescope_builtin, telescope_actions)
+function M.telescope(telescope_builtin, telescope_actions, custom_actions)
     keymap('n', '<C-p>', telescope_builtin.find_files)
     keymap('n', '<leader>/h', telescope_builtin.help_tags)
     keymap('n', '<leader>/k', telescope_builtin.keymaps)
     keymap('n', '<leader>/w', telescope_builtin.grep_string)
     keymap('n', '<leader>//', telescope_builtin.live_grep)
     keymap('n', '<leader>/d', telescope_builtin.diagnostics)
+    keymap('n', '<leader>/g', custom_actions.git_changed_files)
     keymap('n', '<leader>/t', ':TodoTelescope keywords=TODO,FIX,BUG,ISSUE,TEST<CR>')
+    keymap('n', '<leader>/?', telescope_builtin.builtin)
     keymap('n', '<leader><leader>', telescope_builtin.buffers)
 
     -- NOTE: returns the keymaps inside the telescope prompt

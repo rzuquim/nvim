@@ -1,4 +1,5 @@
 local keymaps = require('keymaps')
+local icons = require('appearance.icons')
 
 local blame_active = false
 local toggle_blame = function()
@@ -8,7 +9,7 @@ local toggle_blame = function()
     if blame_active then
         utils.close_buffers_by_type('gitsigns-blame')
     else
-        -- NOTE: not loosing editor window 
+        -- NOTE: not loosing editor window
         local curr_win = vim.api.nvim_get_current_win()
         gitsigns.blame(function()
             vim.api.nvim_set_current_win(curr_win)
@@ -32,6 +33,22 @@ local M = {
         on_attach = function(buf)
             keymaps.git(buf, toggle_blame)
         end,
+        signs = {
+            add = { text = '┃' },
+            change = { text = '┃' },
+            delete = { text = icons.git.LineRemoved },
+            topdelete = { text = icons.git.LineRemoved },
+            changedelete = { text = icons.git.LineModified },
+            untracked = { text = '┆' },
+        },
+        signs_staged = {
+            add = { text = '┃' },
+            change = { text = '┃' },
+            delete = { text = icons.git.LineRemoved },
+            topdelete = { text = icons.git.LineRemoved },
+            changedelete = { text = icons.git.LineModified },
+            untracked = { text = '┆' },
+        },
     },
 }
 
