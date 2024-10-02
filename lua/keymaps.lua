@@ -85,15 +85,10 @@ keymap('n', '<A-Right>', '<C-I>')
 -- ----------------------
 -- Diagnostics
 -- ----------------------
-local lsp_lines_enabled = false
 keymap('n', 'E', vim.diagnostic.goto_prev)
 keymap('n', 'e', vim.diagnostic.goto_next)
 keymap('n', '<leader>ee', '<cmd>Trouble diagnostics toggle<CR>')
 keymap('n', '<leader>ef', vim.diagnostic.open_float)
-keymap('n', '<leader>et', function()
-    lsp_lines_enabled = not lsp_lines_enabled
-    vim.diagnostic.config({ virtual_lines = lsp_lines_enabled, virtual_text = not lsp_lines_enabled })
-end)
 
 local M = {}
 
@@ -302,6 +297,10 @@ function M.multicursor(mc)
     keymap('v', 'I', mc.insertVisual)
     keymap('v', 'A', mc.appendVisual)
     keymap('v', 'S', mc.splitCursors)
+end
+
+function M.lsp_lines(lsp_lines)
+    keymap('n', '<leader>et', lsp_lines.toggle_lsp_lines)
 end
 
 return M
