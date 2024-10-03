@@ -7,6 +7,7 @@ local function extra_condition()
 end
 
 return {
+    disable_lsp = true,
     extra_formatters = {
         javascript = { 'prettierd' },
         javascriptreact = { 'prettierd' },
@@ -23,5 +24,20 @@ return {
         'javascript',
         'tsx',
         'typescript',
+    },
+    extra_plugins = {
+        {
+            'pmizio/typescript-tools.nvim',
+            dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+            config = function()
+                require('typescript-tools').setup({
+                    on_attach = function(client, _)
+                        -- NOTE: using prettier
+                        client.server_capabilities.documentFormattingProvider = false
+                        client.server_capabilities.documentRangeFormattingProvider = false
+                    end,
+                })
+            end,
+        },
     },
 }

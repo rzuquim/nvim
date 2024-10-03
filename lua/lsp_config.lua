@@ -32,6 +32,10 @@ function M.config()
         handlers = {
             function(lang)
                 local server = langs[lang] or {}
+                if server.disable_lsp then
+                    return
+                end
+
                 server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
                 if server.extra_settings then
                     lspconfig[lang].setup(server.extra_settings())
