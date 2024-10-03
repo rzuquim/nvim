@@ -206,6 +206,10 @@ function M.git(buf, custom_toggle_blame)
     keymap('n', '<leader>gb', custom_toggle_blame, bufferScope)
 end
 
+function M.git_diff_view(actions)
+    keymap('n', '<leader>g?', actions.toggle_git_diff_view)
+end
+
 -- utils for snippet "super-tab" behavior
 local check_backspace = function()
     local col = vim.fn.col('.') - 1
