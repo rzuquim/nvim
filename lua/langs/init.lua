@@ -18,6 +18,7 @@ local M = {
     html = require('langs.html').html,
     jdtls = require('langs.java'),
     jsonls = require('langs.json'),
+    yamlls = require('langs.yaml'),
     lemminx = require('langs.xml'),
     lua_ls = require('langs.lua'),
     marksman = require('langs.markdown'),
