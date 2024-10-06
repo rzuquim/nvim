@@ -35,6 +35,7 @@ keymap('n', '<C-w>', util.close_curr_buffer) -- close buffer
 keymap('n', '<Tab>', '<C-^>') -- toggle buffers
 keymap('n', '<leader>ww', ':wqa!<CR>') -- Quit everything writing all buffers to the disk
 keymap('n', '<leader>we', ':%bd|e#<CR>') -- closes every buffer but the current one
+keymap('n', '<leader>wq', ':cclose') -- closes qflist
 
 -- ----------------------
 -- Move lines
@@ -81,6 +82,9 @@ keymap('n', '<C-u>', '<C-u>zz')
 
 keymap('n', '<A-Left>', '<C-O>')
 keymap('n', '<A-Right>', '<C-I>')
+
+keymap('n', '<leader>n', ':cnext<CR>') -- next quickfix item
+keymap('n', '<leader>p', ':cprev<CR>') -- previous quickfix item
 
 -- ----------------------
 -- Diagnostics
