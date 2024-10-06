@@ -81,6 +81,7 @@ for lang, settings in pairs(M) do
                         table.insert(conditions, linter)
                     else
                         table.insert(actual_linters, linter)
+                        table.insert(ensure_installed, linter)
                     end
                 end
 
