@@ -167,7 +167,12 @@ function M.lsp(buf)
 
     keymap('n', '<F36>', telescope_builtin.lsp_implementations, bufferScope)
     keymap('n', '<F2>', vim.lsp.buf.rename, bufferScope)
-    keymap('n', '<F24>', telescope_builtin.lsp_references, bufferScope)
+    keymap('n', '<F24>', function()
+        telescope_builtin.lsp_references({
+            include_declaration = false,
+            include_current_line = false,
+        })
+    end, bufferScope)
 
     -- signature and help
     keymap('n', '?', vim.lsp.buf.hover, bufferScope)
