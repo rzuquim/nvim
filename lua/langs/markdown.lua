@@ -68,7 +68,7 @@ function markdown_preview.config()
             vim.opt_local.wrapmargin = 0
             vim.opt_local.linebreak = true
             vim.opt_local.columns = 125 -- NOTE: dont known why but we need 5 extra chars (enabling markdown_preview)
-            vim.opt_local.spelllang = 'en,es,br'
+            vim.opt_local.spelllang = 'en,es,br,names'
         end,
     })
 
@@ -79,11 +79,25 @@ function markdown_preview.config()
         end,
     })
 
+    local function add_word_in_spellfile(word)
+        local spellfiles = vim.fn.globpath(vim.o.runtimepath, 'spell/*.add', true, true)
+
+        vim.ui.select(spellfiles, { prompt = 'Select spellfile' }, function(selected_spellfile)
+            if not selected_spellfile then
+                return
+            end
+
+            vim.opt.spellfile = selected_spellfile
+            vim.cmd('silent spellgood ' .. word)
+            vim.opt.spellfile = ''
+        end)
+    end
+
     local function md_code_action()
         local options = {
-            'Code actions',
             'Spell suggestions',
             'Add word into dict',
+            'Code actions',
         }
 
         vim.ui.select(options, { prompt = 'Select Action' }, function(choice, index)
@@ -91,12 +105,12 @@ function markdown_preview.config()
                 return
             end
             if index == 1 then
-                vim.lsp.buf.code_action()
-            elseif index == 2 then
                 telescope_builtin.spell_suggest()
-            elseif index == 3 then
+            elseif index == 2 then
                 local cursor_word = vim.fn.expand('<cword>')
-                print('doidera ' .. cursor_word)
+                add_word_in_spellfile(cursor_word)
+            elseif index == 3 then
+                vim.lsp.buf.code_action()
             end
         end)
     end
