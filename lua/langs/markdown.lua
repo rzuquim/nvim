@@ -12,6 +12,7 @@ local M = {
     },
     extra_plugins = {
         markdown_preview,
+        -- TODO: add image support: [@linkarzu](https://github.com/linkarzu/dotfiles-latest)
     },
 }
 
@@ -79,6 +80,25 @@ function markdown_preview.config()
         end,
     })
 
+    local function convert_to_pdf()
+        local filepath = vim.fn.expand('%:p')
+
+        if not filepath:match('%.md$') then
+            print('Error: The current buffer must be a markdown file.')
+            return
+        end
+
+        local output_file = filepath:gsub('%.md$', '.pdf')
+        local cmd = string.format(
+            'pandoc %s -f gfm --pdf-engine=xelatex --highlight-style kate -o %s && xdg-open %s',
+            filepath,
+            output_file,
+            output_file
+        )
+        print(cmd)
+        os.execute(cmd)
+    end
+
     local function add_word_in_spellfile(word)
         local spellfiles = vim.fn.globpath(vim.o.runtimepath, 'spell/*.add', true, true)
 
@@ -97,6 +117,7 @@ function markdown_preview.config()
         local options = {
             'Spell suggestions',
             'Add word into dict',
+            'Convert to pdf',
             'Code actions',
         }
 
@@ -110,6 +131,8 @@ function markdown_preview.config()
                 local cursor_word = vim.fn.expand('<cword>')
                 add_word_in_spellfile(cursor_word)
             elseif index == 3 then
+                convert_to_pdf()
+            else
                 vim.lsp.buf.code_action()
             end
         end)
