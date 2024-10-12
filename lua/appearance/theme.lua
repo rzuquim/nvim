@@ -6,7 +6,7 @@ local M = {
 }
 
 local current_hour = os.date('%H')
-if tonumber(current_hour) > 12 then
+if tonumber(current_hour) > 11 then
     M.theme = 'dark'
 else
     M.theme = 'light'

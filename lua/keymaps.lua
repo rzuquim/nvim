@@ -316,4 +316,12 @@ function M.lsp_lines(lsp_lines)
     keymap('n', '<leader>et', lsp_lines.toggle_lsp_lines)
 end
 
+function M.markdown(buf, code_action)
+    local bufferScope = { buffer = buf }
+    keymap('n', 'e', ']s', bufferScope)
+    keymap('n', 'E', '[s', bufferScope)
+    -- FIX: choose code action > spellcheck > which dictionary
+    keymap('n', 't', code_action, bufferScope)
+end
+
 return M
