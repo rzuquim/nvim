@@ -35,7 +35,7 @@ keymap('n', '<C-w>', util.close_curr_buffer) -- close buffer
 keymap('n', '<Tab>', '<C-^>') -- toggle buffers
 keymap('n', '<leader>ww', ':wqa!<CR>') -- Quit everything writing all buffers to the disk
 keymap('n', '<leader>we', ':%bd|e#<CR>') -- closes every buffer but the current one
-keymap('n', '<leader>wq', ':cclose') -- closes qflist
+keymap('n', '<leader>wq', ':cclose<CR>') -- closes qflist
 
 -- ----------------------
 -- Move lines
