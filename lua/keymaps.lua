@@ -16,6 +16,10 @@ end
 keymap('n', '+', '<C-a>')
 keymap('n', '-', '<C-x>')
 keymap('n', 'Y', 'y$') -- make Y behave like D and C, yanking till end of line
+keymap('n', '<leader>y', '"sy') -- using register s for special stuff
+keymap('n', '<leader>Y', '"sy$')
+keymap('n', '<leader>p', '"sp')
+keymap('n', '<leader>P', '"sP')
 keymap('n', 'X', '0d$jw') -- Erase line
 keymap('n', '<C-;>', 'q:i') -- cmd mode with history
 keymap('n', '<C-/>', 'q/i') -- cmd mode with history
@@ -83,8 +87,8 @@ keymap('n', '<C-u>', '<C-u>zz')
 keymap('n', '<A-Left>', '<C-O>')
 keymap('n', '<A-Right>', '<C-I>')
 
-keymap('n', '<leader>n', ':cnext<CR>') -- next quickfix item
-keymap('n', '<leader>p', ':cprev<CR>') -- previous quickfix item
+keymap('n', '<A-n>', ':cnext<CR>') -- next quickfix item
+keymap('n', '<A-p>', ':cprev<CR>') -- previous quickfix item
 
 -- ----------------------
 -- Diagnostics
