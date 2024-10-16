@@ -14,8 +14,8 @@ return {
         }
     end,
     extra_formatters = {
-        yaml = { 'yamlfmt' },
-        yml = { 'yamlfmt' },
+        yaml = { 'prettierd' },
+        yml = { 'prettierd' },
     },
     extra_treesitter = {
         'yaml',
