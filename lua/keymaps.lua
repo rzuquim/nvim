@@ -276,27 +276,6 @@ function M.cmp(cmp, luasnip)
     }
 end
 
-function M.harpoon()
-    local mark = require('harpoon.mark')
-    local ui = require('harpoon.ui')
-
-    keymap('n', ',', ui.toggle_quick_menu)
-    keymap('n', ',,', mark.add_file)
-
-    keymap('n', ',f', function()
-        ui.nav_file(1)
-    end)
-    keymap('n', ',d', function()
-        ui.nav_file(2)
-    end)
-    keymap('n', ',s', function()
-        ui.nav_file(3)
-    end)
-    keymap('n', ',a', function()
-        ui.nav_file(4)
-    end)
-end
-
 function M.multicursor(mc)
     keymap({ 'n', 'v' }, '<C-n>', function()
         mc.addCursor('*')
