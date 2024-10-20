@@ -9,7 +9,9 @@ local linters_by_ft = {}
 local lint_conditions = {}
 local treesitter_langs = {}
 local extra_plugins = {}
+local extra_dap_config = {}
 
+-- NOTE: for config examples see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local M = {
     bashls = require('langs.bash'),
     clangd = require('langs.clang'),
@@ -55,6 +57,10 @@ local M = {
 
     extra_plugins = function()
         return extra_plugins
+    end,
+
+    extra_dap_config = function()
+        return extra_dap_config
     end,
 }
 
@@ -104,6 +110,13 @@ for lang, settings in pairs(M) do
         if settings.extra_plugins then
             for _, plugin in pairs(settings.extra_plugins) do
                 table.insert(extra_plugins, plugin)
+            end
+        end
+
+        if settings.extra_dap then
+            for dbg_name, dbg_config in pairs(settings.extra_dap) do
+                table.insert(ensure_installed, dbg_name)
+                table.insert(extra_dap_config, dbg_config)
             end
         end
     end

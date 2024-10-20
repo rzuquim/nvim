@@ -303,8 +303,38 @@ function M.markdown(buf, code_action)
     local bufferScope = { buffer = buf }
     keymap('n', 'e', ']s', bufferScope)
     keymap('n', 'E', '[s', bufferScope)
-    -- FIX: choose code action > spellcheck > which dictionary
     keymap('n', 't', code_action, bufferScope)
+end
+
+function M.dap(dapui, dap)
+    keymap('n', '<F8>', dap.continue)
+    keymap('n', '<F10>', dap.step_over)
+    keymap('n', '<F11>', dap.step_into)
+    keymap('n', '<F12>', dap.step_out)
+
+    keymap('n', '<F9>', dap.toggle_breakpoint)
+    keymap('n', '<C-F9>', dap.clear_breakpoints)
+
+    keymap('n', '<leader>dd', dapui.toggle)
+    keymap('n', '<Leader>dl', dap.run_last)
+    keymap('n', '<leader>/b', ':Telescope dap list_breakpoints<CR>')
+    -- :Telescope dap commands
+    -- :Telescope dap configurations
+    -- :Telescope dap variables
+    -- :Telescope dap frames
+
+    keymap('n', '<leader>dr', function()
+        dapui.toggle({ reset = true }) -- resets the UI
+    end)
+
+    -- TODO: additional commands
+    --      "<cmd>lua require'dap'.step_back()<cr>",
+    --      "<cmd>lua require'dap'.run_to_cursor()<cr>",
+    --      "<cmd>lua require'dap'.disconnect()<cr>",
+    --      "<cmd>lua require'dap'.session()<cr>",
+    --      "<cmd>lua require'dap'.pause()<cr>",
+    --      "<cmd>lua require'dap'.repl.toggle()<cr>",
+    --      "<cmd>lua require'dap'.close()<cr>",
 end
 
 return M

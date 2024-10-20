@@ -31,6 +31,7 @@ plugins.setup('behavior.mini_helpers')
 plugins.setup('behavior.auto_save')
 plugins.setup('behavior.tmux')
 plugins.setup('behavior.workspace_diagnostics')
+plugins.setup('behavior.dap')
 
 for _, plugin in pairs(langs.extra_plugins()) do
     plugins.setup(plugin, true)
