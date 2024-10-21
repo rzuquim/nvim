@@ -100,14 +100,13 @@ keymap('n', '<leader>ef', vim.diagnostic.open_float)
 
 local M = {}
 
-function M.telescope(telescope_builtin, telescope_actions, custom_actions)
+function M.telescope(telescope_builtin, telescope_actions)
     keymap('n', '<C-p>', telescope_builtin.find_files)
     keymap('n', '<leader>/h', telescope_builtin.help_tags)
     keymap('n', '<leader>/k', telescope_builtin.keymaps)
     keymap('n', '<leader>/w', telescope_builtin.grep_string)
     keymap('n', '<leader>//', telescope_builtin.live_grep)
     keymap('n', '<leader>/d', telescope_builtin.diagnostics)
-    keymap('n', '<leader>/g', custom_actions.git_changed_files)
     keymap('n', '<leader>/t', ':TodoTelescope keywords=TODO,FIX,BUG,ISSUE,TEST<CR>')
     keymap('n', '<leader>/?', telescope_builtin.builtin)
     keymap('n', '<leader><leader>', telescope_builtin.buffers)
@@ -208,7 +207,7 @@ function M.comments()
     }
 end
 
-function M.git(buf, custom_toggle_blame)
+function M.git(buf, custom_toggle_blame, custom_git_changed_files)
     local gitsigns = require('gitsigns')
     local bufferScope = { buffer = buf }
 
@@ -217,6 +216,7 @@ function M.git(buf, custom_toggle_blame)
     keymap('n', '<leader>gs', gitsigns.preview_hunk, bufferScope)
     keymap('n', '<leader>gd', gitsigns.diffthis, bufferScope)
     keymap('n', '<leader>gb', custom_toggle_blame, bufferScope)
+    keymap('n', '<leader>/g', custom_git_changed_files)
 end
 
 function M.git_diff_view(actions)

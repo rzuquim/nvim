@@ -21,55 +21,53 @@ local M = {
     },
 }
 
--- NOTE: this is basically the same as running the default action 'gitstatus'
---       but i am keeping for future reference
-local function git_changed_files(pickers, finders, previewers, conf)
-    local handle = io.popen('git status --porcelain')
+M.cmd_picker = function(cmd, opts)
+    local pickers = require('telescope.pickers')
+    local finders = require('telescope.finders')
+    local conf = require('telescope.config').values
+
+    local handle = io.popen(cmd)
     if handle == nil then
         return
     end
-    local result = handle:read('*a')
+    local cmd_stdout = handle:read('*a')
     handle:close()
 
     local entries = {}
-
-    for line in result:gmatch('[^\r\n]+') do
-        local status = line:sub(1, 2) -- Get the first two characters for status
-        local filename = line:sub(4) -- Filename starts at the 4th character
-
-        local entry = {}
-        if status:match('D') then
-            entry = { icon = icons.git.FileDeleted, filename = filename }
-        elseif status:match('A') then
-            entry = { icon = icons.git.LineAdded, filename = filename }
-        elseif status:match('%?') then
-            entry = { icon = icons.git.FileUnstaged, filename = filename }
+    for line in cmd_stdout:gmatch('[^\r\n]+') do
+        if opts.parse_line then
+            table.insert(entries, opts.parse_line(line))
         else
-            entry = { icon = icons.git.LineModified, filename = filename }
+            table.insert(entries, line)
         end
-
-        table.insert(entries, entry)
     end
 
-    pickers
-        .new({}, {
-            prompt_title = 'changed files',
-            finder = finders.new_table({
-                results = entries,
-                entry_maker = function(entry)
-                    return {
-                        value = entry.filename,
-                        display = function(display_entry)
-                            return string.format('%s %s', entry.icon, display_entry.value)
-                        end,
-                        ordinal = entry.filename,
-                    }
-                end,
-            }),
-            sorter = conf.generic_sorter({}),
-            previewer = previewers.git_file_diff.new({}),
-        })
-        :find()
+    local finder_opts = { results = entries }
+
+    if opts.entry_maker then
+        finder_opts.entry_maker = opts.entry_maker
+    end
+
+    if opts.find_command then
+        finder_opts.find_command = opts.find_command
+    end
+
+    local picker_opts = {
+        prompt_title = opts.prompt_title,
+        finder = finders.new_table(finder_opts),
+    }
+
+    if opts.sorter then
+        picker_opts.sorter = opts.sorter
+    else
+        picker_opts.sorter = conf.generic_sorter({})
+    end
+
+    if opts.previewer then
+        picker_opts.previewer = opts.previewer
+    end
+
+    pickers.new({}, picker_opts):find()
 end
 
 function M.config()
@@ -77,17 +75,8 @@ function M.config()
     local telescope_builtin = require('telescope.builtin')
     local themes = require('telescope.themes')
     local actions = require('telescope.actions')
-    local pickers = require('telescope.pickers')
-    local finders = require('telescope.finders')
-    local previewers = require('telescope.previewers')
-    local conf = require('telescope.config').values
-    local custom_actions = {
-        git_changed_files = function()
-            git_changed_files(pickers, finders, previewers, conf)
-        end,
-    }
 
-    local mappings = keymaps.telescope(telescope_builtin, actions, custom_actions)
+    local mappings = keymaps.telescope(telescope_builtin, actions)
 
     telescope.setup({
         defaults = {
