@@ -207,7 +207,7 @@ function M.comments()
     }
 end
 
-function M.git(buf, custom_toggle_blame, custom_git_changed_files)
+function M.gitsigns(buf, custom_toggle_blame)
     local gitsigns = require('gitsigns')
     local bufferScope = { buffer = buf }
 
@@ -216,11 +216,11 @@ function M.git(buf, custom_toggle_blame, custom_git_changed_files)
     keymap('n', '<leader>gs', gitsigns.preview_hunk, bufferScope)
     keymap('n', '<leader>gd', gitsigns.diffthis, bufferScope)
     keymap('n', '<leader>gb', custom_toggle_blame, bufferScope)
-    keymap('n', '<leader>/g', custom_git_changed_files)
 end
 
 function M.git_diff_view(actions)
     keymap('n', '<leader>g?', actions.toggle_git_diff_view)
+    keymap('n', '<leader>/g', actions.custom_git_changed_files)
 end
 
 -- utils for snippet "super-tab" behavior
