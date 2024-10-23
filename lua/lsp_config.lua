@@ -14,6 +14,14 @@ local M = {
 local langs = require('langs')
 local keymaps = require('keymaps')
 
+function lsp_find_references()
+    local telescope_builtin = require('telescope.builtin')
+    telescope_builtin.lsp_references({
+        include_declaration = false,
+        include_current_line = false,
+    })
+end
+
 function M.config()
     local mason = require('mason')
     local mason_installer = require('mason-tool-installer')
@@ -49,7 +57,7 @@ function M.config()
     vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('keymaps-lsp-attach', { clear = true }),
         callback = function(evt)
-            keymaps.lsp(evt.buf)
+            keymaps.lsp(evt.buf, lsp_find_references)
         end,
     })
 

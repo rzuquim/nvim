@@ -162,7 +162,7 @@ function M.oil()
     }
 end
 
-function M.lsp(buf)
+function M.lsp(buf, lsp_find_references)
     local telescope_builtin = require('telescope.builtin')
     local bufferScope = { buffer = buf }
     -- go to definition, usages, go to implementation and rename
@@ -170,12 +170,9 @@ function M.lsp(buf)
 
     keymap('n', '<F36>', telescope_builtin.lsp_implementations, bufferScope)
     keymap('n', '<F2>', vim.lsp.buf.rename, bufferScope)
-    keymap('n', '<F24>', function()
-        telescope_builtin.lsp_references({
-            include_declaration = false,
-            include_current_line = false,
-        })
-    end, bufferScope)
+    -- NOTE: this is here twice to support multiple terminals
+    keymap('n', '<F24>', lsp_find_references, bufferScope)
+    keymap('n', '<S-F12>', lsp_find_references, bufferScope)
 
     -- signature and help
     keymap('n', '?', vim.lsp.buf.hover, bufferScope)
