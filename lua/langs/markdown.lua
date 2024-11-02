@@ -69,7 +69,7 @@ function markdown_preview.config()
             vim.opt_local.wrapmargin = 0
             vim.opt_local.linebreak = true
             vim.opt_local.columns = 125 -- NOTE: dont known why but we need 5 extra chars (enabling markdown_preview)
-            vim.opt_local.spelllang = 'en,es,br,names'
+            vim.opt_local.spelllang = 'en,es,br,names,acronyms'
         end,
     })
 
