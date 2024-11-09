@@ -147,7 +147,7 @@ function M.oil()
         ['<CR>'] = 'actions.select',
         ['<A-v>'] = { 'actions.select', opts = { vertical = true } },
         ['<A-h>'] = { 'actions.select', opts = { horizontal = true } },
-        ['<Esc>'] = { callback = 'actions.close', mode = 'n' },
+        ['<C-w>'] = { callback = 'actions.close', mode = 'n' },
         ['_'] = 'actions.parent',
         ['<C-_>'] = 'actions.open_cwd',
         ['<C-.>'] = 'actions.toggle_hidden',
