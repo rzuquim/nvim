@@ -15,11 +15,6 @@ end
 -- ----------------------
 keymap('n', '+', '<C-a>')
 keymap('n', '-', '<C-x>')
-keymap('n', 'Y', 'y$') -- make Y behave like D and C, yanking till end of line
-keymap('n', '<leader>y', '"sy') -- using register s for special stuff
-keymap('n', '<leader>Y', '"sy$')
-keymap('n', '<leader>p', '"sp')
-keymap('n', '<leader>P', '"sP')
 keymap('n', 'X', '0d$jw') -- Erase line
 keymap('n', '<C-;>', 'q:i') -- cmd mode with history
 keymap('n', '<C-/>', 'q/i') -- cmd mode with history
@@ -97,6 +92,55 @@ keymap('n', 'E', vim.diagnostic.goto_prev)
 keymap('n', 'e', vim.diagnostic.goto_next)
 keymap('n', '<leader>ee', '<cmd>Trouble diagnostics toggle<CR>')
 keymap('n', '<leader>ef', vim.diagnostic.open_float)
+
+-- ----------------------
+-- Copy/Paste
+-- ---------------------
+
+keymap('n', 'Y', 'y$') -- make Y behave like D and C, yanking till end of line
+keymap('n', '<leader>y', '"sy') -- using register s for special stuff
+keymap('n', '<leader>Y', '"sy$')
+keymap('n', '<leader>p', '"sp')
+keymap('n', '<leader>P', '"sP')
+
+local function copy_and_paste_line(opts)
+    local current_line = vim.fn.line('.')
+    local count = vim.v.count1
+    local target_line
+
+    if opts.copy_up then
+        target_line = current_line - count
+    else
+        target_line = current_line + count
+    end
+
+    if target_line < 1 or target_line > vim.fn.line('$') then
+        print('Err: Line to copy is out of range: ' .. target_line)
+        return
+    end
+
+    local paste_line = current_line
+    if opts.paste_up then
+        paste_line = paste_line - 1
+    else
+        paste_line = paste_line
+    end
+
+    vim.cmd(target_line .. 'copy ' .. paste_line)
+end
+
+keymap('n', '<leader>kp', function()
+    copy_and_paste_line({ copy_up = true, paste_up = false })
+end)
+keymap('n', '<leader>kP', function()
+    copy_and_paste_line({ copy_up = true, paste_up = true })
+end)
+keymap('n', '<leader>jp', function()
+    copy_and_paste_line({ copy_up = false, paste_up = false })
+end)
+keymap('n', '<leader>jP', function()
+    copy_and_paste_line({ copy_up = false, paste_up = true })
+end)
 
 local M = {}
 
