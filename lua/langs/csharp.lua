@@ -2,6 +2,9 @@ return {
     extra_treesitter = {
         'c_sharp',
     },
+    extra_snippets = {
+        ['cs'] = require('snippets.charp'),
+    },
     extra_dap = {
         netcoredbg = function(dap)
             dap.adapters.coreclr = {

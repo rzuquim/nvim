@@ -29,8 +29,15 @@ function M.config()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
     local vscode_snippets = require('luasnip/loaders/from_vscode')
+    local langs = require('langs')
 
     luasnip.config.setup({})
+
+    for ft, snippets_fns in pairs(langs.extra_snippets()) do
+        for _, fn in ipairs(snippets_fns) do
+            luasnip.add_snippets(ft, fn(luasnip))
+        end
+    end
 
     cmp.setup({
         snippet = {

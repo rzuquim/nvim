@@ -10,6 +10,7 @@ local lint_conditions = {}
 local treesitter_langs = {}
 local extra_plugins = {}
 local extra_dap_config = {}
+local extra_snippets = {}
 
 -- NOTE: for config examples see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local M = {
@@ -61,6 +62,10 @@ local M = {
 
     extra_dap_config = function()
         return extra_dap_config
+    end,
+
+    extra_snippets = function()
+        return extra_snippets
     end,
 }
 
@@ -117,6 +122,16 @@ for lang, settings in pairs(M) do
             for dbg_name, dbg_config in pairs(settings.extra_dap) do
                 table.insert(ensure_installed, dbg_name)
                 table.insert(extra_dap_config, dbg_config)
+            end
+        end
+
+        if settings.extra_snippets then
+            for ft, snippets_fn in pairs(settings.extra_snippets) do
+                if not extra_snippets[ft] then
+                    extra_snippets[ft] = {}
+                end
+
+                table.insert(extra_snippets[ft], snippets_fn)
             end
         end
     end
