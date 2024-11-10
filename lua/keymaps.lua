@@ -49,8 +49,8 @@ keymap('i', '<S-Tab>', '<C-d>') -- untab with shift tab
 keymap('v', '<Tab>', '>gv') -- tab in visual mode
 keymap('v', '<S-Tab>', '<gv') -- untab in visual mode
 
-keymap('v', '<leader>s', ':sort<CR>') -- sort the selected text
-keymap('v', '<leader>u', ':sort u<CR>') -- eliminate duplicates and sort in the selected text
+keymap('v', '<leader>ss', ':sort<CR>') -- sort the selected text
+keymap('v', '<leader>su', ':sort u<CR>') -- eliminate duplicates and sort in the selected text
 
 keymap('n', '<leader>xv', ':vsplit<CR>:bnext<CR>') -- vertical split
 keymap('n', '<leader>xh', ':split<CR>:bnext<CR>') -- horizontal split
@@ -347,14 +347,15 @@ function M.markdown(buf, code_action)
     keymap('n', 't', code_action, bufferScope)
 end
 
-function M.dap(dapui, dap)
+function M.dap(dapui, dap, breakpoints)
     keymap('n', '<F8>', dap.continue)
     keymap('n', '<F10>', dap.step_over)
     keymap('n', '<F11>', dap.step_into)
     keymap('n', '<F12>', dap.step_out)
 
-    keymap('n', '<F9>', dap.toggle_breakpoint)
-    keymap('n', '<C-F9>', dap.clear_breakpoints)
+    keymap('n', '<F9>', breakpoints.toggle_breakpoint)
+    keymap('n', '<leader>db', breakpoints.set_conditional_breakpoint)
+    keymap('n', '<leader>dc', breakpoints.clear_all_breakpoints)
 
     keymap('n', '<leader>dd', dapui.toggle)
     keymap('n', '<Leader>dl', dap.run_last)

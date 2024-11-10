@@ -5,6 +5,12 @@ local M = {
         'nvim-neotest/nvim-nio',
         'theHamsta/nvim-dap-virtual-text',
         'nvim-telescope/telescope-dap.nvim',
+        {
+            'Weissle/persistent-breakpoints.nvim',
+            opts = {
+                save_dir = os.getenv('HOME') .. '/.vim/breakpoints',
+            },
+        },
     },
     event = 'VeryLazy',
 }
@@ -17,6 +23,8 @@ function M.config()
 
     local dap = require('dap')
     local dap_ui = require('dapui')
+    local breakpoints = require('persistent-breakpoints')
+    local breakpoints_api = require('persistent-breakpoints.api')
     local dap_virtual_text = require('nvim-dap-virtual-text')
 
     for _, debugger_config in ipairs(langs.extra_dap_config()) do
@@ -35,13 +43,17 @@ function M.config()
         vim.fn.sign_define(name, sign)
     end
 
-    keymaps.dap(dap_ui, dap)
+    keymaps.dap(dap_ui, dap, breakpoints_api)
 
     -- NOTE: making sure dapui is open on a session is running
     dap.listeners.before.attach.dapui_config = dap_ui.open
     dap.listeners.before.launch.dapui_config = dap_ui.open
     dap.listeners.before.event_terminated.dapui_config = dap_ui.close
     dap.listeners.before.event_exited.dapui_config = dap_ui.close
+
+    breakpoints.setup({
+        load_breakpoints_event = { 'BufReadPost' },
+    })
 end
 
 return M
