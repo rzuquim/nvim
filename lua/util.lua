@@ -24,4 +24,16 @@ function M.close_curr_buffer()
     vim.cmd('bdelete')
 end
 
+function M.run_cmd(cmd)
+    local handle = io.popen(cmd)
+    if handle == nil then
+        return nil
+    end
+
+    local cmd_stdout = handle:read('*a')
+    handle:close()
+
+    return cmd_stdout
+end
+
 return M

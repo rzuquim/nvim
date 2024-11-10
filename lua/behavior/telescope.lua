@@ -1,5 +1,6 @@
 local keymaps = require('keymaps')
 local icons = require('appearance.icons')
+local util = require('util')
 
 local M = {
     'nvim-telescope/telescope.nvim',
@@ -24,14 +25,15 @@ local M = {
 M.cmd_picker = function(cmd, opts)
     local pickers = require('telescope.pickers')
     local finders = require('telescope.finders')
+    local actions_state = require('telescope.actions.state')
+    local actions = require('telescope.actions')
     local conf = require('telescope.config').values
 
-    local handle = io.popen(cmd)
-    if handle == nil then
-        return
+    local cmd_stdout = util.run_cmd(cmd)
+    if not cmd_stdout then
+        vim.notify('Err: could not run cmd: ' .. cmd)
+        return nil
     end
-    local cmd_stdout = handle:read('*a')
-    handle:close()
 
     local entries = {}
     for line in cmd_stdout:gmatch('[^\r\n]+') do
@@ -42,32 +44,38 @@ M.cmd_picker = function(cmd, opts)
         end
     end
 
-    local finder_opts = { results = entries }
+    local co = nil
+    local custom_mappings = nil
+    if opts.custom_select then
+        co = coroutine.running()
+        local custom_select = function(prompt_bufnr)
+            local selected_entry = actions_state.get_selected_entry()
+            opts.custom_select(selected_entry)
+            actions.close(prompt_bufnr)
+            coroutine.resume(co, selected_entry)
+        end
 
-    if opts.entry_maker then
-        finder_opts.entry_maker = opts.entry_maker
-    end
-
-    if opts.find_command then
-        finder_opts.find_command = opts.find_command
+        custom_mappings = function(_, map)
+            map('n', '<CR>', custom_select)
+            map('i', '<CR>', custom_select)
+            return true
+        end
     end
 
     local picker_opts = {
         prompt_title = opts.prompt_title,
-        finder = finders.new_table(finder_opts),
+        finder = finders.new_table({
+            results = entries,
+            entry_maker = opts.entry_maker,
+        }),
+        sorter = opts.sorter or conf.generic_sorter({}),
+        previewer = opts.previewer,
+        attach_mappings = custom_mappings,
     }
 
-    if opts.sorter then
-        picker_opts.sorter = opts.sorter
-    else
-        picker_opts.sorter = conf.generic_sorter({})
-    end
-
-    if opts.previewer then
-        picker_opts.previewer = opts.previewer
-    end
-
     pickers.new({}, picker_opts):find()
+
+    return co
 end
 
 function M.config()
