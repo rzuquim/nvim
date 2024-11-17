@@ -11,10 +11,10 @@ local M = {
 local selected_csproj_dir = nil
 local function debug_launch()
     local util = require('util')
-    local telescope = require('behavior.telescope')
+    local telescope_helpers = require('behavior.telescope_helpers')
 
     local selected_csproj = nil
-    local co = telescope.cmd_picker('rg --files --iglob *.csproj', {
+    local co = telescope_helpers.cmd_picker('rg --files --iglob *.csproj', {
         prompt_title = 'dotnet projects',
         custom_select = function(selected_item)
             selected_csproj = selected_item[1]

@@ -28,11 +28,11 @@ end
 
 local custom_git_changed_files = function()
     local git_root = git_repo_root()
-    local telescope_cfg = require('behavior.telescope')
+    local telescope_helpers = require('behavior.telescope_helpers')
     local previewers = require('telescope.previewers')
     local cwd = vim.fn.getcwd()
 
-    telescope_cfg.cmd_picker('git status --porcelain', {
+    telescope_helpers.cmd_picker('git status --porcelain', {
         prompt_title = 'changed files',
         parse_line = function(line)
             local status = line:sub(1, 2) -- Get the first two characters for status
