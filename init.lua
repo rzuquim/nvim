@@ -1,6 +1,7 @@
 require('options')
 require('autocmds')
 require('keymaps')
+require('clipboard')
 
 local langs = require('langs')
 local plugins = require('plugin_manager')
