@@ -5,6 +5,7 @@
 
 local ensure_installed = {}
 local formatters_by_ft = {}
+local formatters_config = {}
 local linters_by_ft = {}
 local lint_conditions = {}
 local treesitter_langs = {}
@@ -29,6 +30,7 @@ local M = {
     rust_analyzer = require('langs.rust'),
     taplo = require('langs.toml'),
     vtsls = require('langs.js'),
+    sqlls = require('langs.sql'),
     -- TODO: dockerfile
     -- TODO: gitignore
     -- TODO: sql
@@ -42,6 +44,10 @@ local M = {
 
     formatters_by_ft = function()
         return formatters_by_ft
+    end,
+
+    formatters_config = function()
+        return formatters_config
     end,
 
     linters_by_ft = function()
@@ -74,12 +80,26 @@ for lang, settings in pairs(M) do
         table.insert(ensure_installed, lang)
 
         if settings.extra_formatters then
-            for ft, formattersByFileType in pairs(settings.extra_formatters) do
-                formatters_by_ft[ft] = formattersByFileType
-
-                for _, formatter in ipairs(formattersByFileType) do
-                    table.insert(ensure_installed, formatter)
+            for ft, formatters in pairs(settings.extra_formatters) do
+                local final_formatters = {}
+                for _, formatter in ipairs(formatters) do
+                    if type(formatter) == 'string' then
+                        table.insert(final_formatters, formatter)
+                        table.insert(ensure_installed, formatter)
+                    else
+                        local curr_formatter = ''
+                        for _, item in pairs(formatter) do
+                            if type(item) == 'string' then
+                                curr_formatter = item
+                                table.insert(final_formatters, item)
+                                table.insert(ensure_installed, item)
+                            else
+                                formatters_config[curr_formatter] = item
+                            end
+                        end
+                    end
                 end
+                formatters_by_ft[ft] = final_formatters
             end
         end
 

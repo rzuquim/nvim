@@ -9,6 +9,14 @@ local M = {
 
 function M.config()
     local conform = require('conform')
+    local formatters_by_ft = langs.formatters_by_ft()
+    local config_by_formatter = langs.formatters_config()
+
+    local formatters = {}
+    for formatter, config in pairs(config_by_formatter) do
+        formatters[formatter] = config()
+    end
+
     conform.setup({
         notify_on_error = false,
 
@@ -22,7 +30,8 @@ function M.config()
             }
         end, ]]
 
-        formatters_by_ft = langs.formatters_by_ft(),
+        formatters_by_ft = formatters_by_ft,
+        formatters = formatters,
     })
     keymaps.format(conform)
 end
