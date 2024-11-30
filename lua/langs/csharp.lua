@@ -65,13 +65,33 @@ M.extra_dap.netcoredbg = function(dap)
     dap.configurations.cs = {
         {
             type = 'coreclr',
-            name = 'launch - netcoredbg',
-            request = 'launch',
-            program = debug_launch,
+            name = function()
+                print('name')
+                return 'launch - netcoredbg'
+            end,
+            request = function()
+                print('request')
+                return 'launch'
+            end,
+            program = function()
+                print('program')
+                return debug_launch()
+            end,
             cwd = function()
                 return selected_csproj_dir
             end,
         },
+        -- TODO: attach using functions
+        -- xargs -I {} sh -c 'echo "PID: {}, CWD: $(readlink /proc/{}/cwd)"'
+        -- {
+        --     type = 'coreclr',
+        --     name = 'attach',
+        --     request = 'attach',
+        --     program = attach,
+        --     cwd = function()
+        --         return selected_csproj_dir
+        --     end,
+        -- },
     }
 end
 
