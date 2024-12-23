@@ -20,6 +20,8 @@ keymap('n', '<C-;>', 'q:i') -- cmd mode with history
 keymap('n', '<C-/>', 'q/i') -- cmd mode with history
 keymap('n', 'Q', 'qq^') -- i never use more than one macro and I dont quit with Q
 keymap('n', '@', '@q')
+keymap('n', '<leader>xx', ':.lua<CR>') -- evaluate lua lina
+keymap('v', '<leader>xx', ':lua<CR>') -- evaluate lua selection
 
 -- ----------------------
 -- Window management
@@ -193,8 +195,8 @@ function M.oil()
         ['<A-h>'] = { 'actions.select', opts = { horizontal = true } },
         ['<C-w>'] = { callback = 'actions.close', mode = 'n' },
         ['_'] = 'actions.parent',
-        ['<C-_>'] = 'actions.open_cwd',
-        ['<C-.>'] = 'actions.toggle_hidden',
+        ['h'] = 'actions.open_cwd',
+        ['H'] = 'actions.toggle_hidden',
         ['<A-p>'] = 'actions.preview',
 
         -- ["<C-l>"] = "actions.refresh",

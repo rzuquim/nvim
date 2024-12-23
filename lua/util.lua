@@ -1,5 +1,5 @@
 local M = {
-    system_file_types = { 'oil', 'gitsigns-blame', 'harpoon' },
+    system_file_types = { 'oil', 'gitsigns-blame', 'dbui' },
 }
 
 function M.close_buffers_by_type(buffer_type)
@@ -34,6 +34,15 @@ function M.run_cmd(cmd)
     handle:close()
 
     return cmd_stdout
+end
+
+function M.local_dev_pwd()
+    local dev_password = vim.fn.getenv('DEV_PASSWORD')
+    if not dev_password then
+        vim.notify('Error: DEV_PASSWORD environment variable is not set.', vim.log.levels.ERROR)
+        return nil
+    end
+    return dev_password
 end
 
 return M

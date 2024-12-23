@@ -2,13 +2,58 @@ local util = require('util')
 
 local M = {}
 
-M.cmd_picker = function(cmd, opts)
+M.table_picker = function(entries, opts)
     local pickers = require('telescope.pickers')
     local finders = require('telescope.finders')
     local actions_state = require('telescope.actions.state')
     local actions = require('telescope.actions')
     local conf = require('telescope.config').values
 
+    local co = nil
+    local custom_mappings = nil
+    if opts.custom_select then
+        co = coroutine.running()
+        assert(co, 'table_picker must be called within a coroutine')
+        local custom_select = function(prompt_bufnr)
+            local selected_entry = actions_state.get_selected_entry()
+            opts.custom_select(selected_entry)
+            actions.close(prompt_bufnr)
+            coroutine.resume(co, selected_entry)
+        end
+
+        custom_mappings = function(_, map)
+            map('n', '<CR>', custom_select)
+            map('i', '<CR>', custom_select)
+            return true
+        end
+    end
+
+    local entry_maker = opts.entry_maker
+        or function(entry)
+            return {
+                value = entry.value,
+                display = entry.label,
+                ordinal = entry.label,
+            }
+        end
+
+    local picker_opts = {
+        prompt_title = opts.prompt_title,
+        finder = finders.new_table({
+            results = entries,
+            entry_maker = entry_maker,
+        }),
+        sorter = opts.sorter or conf.generic_sorter({}),
+        previewer = opts.previewer,
+        attach_mappings = custom_mappings,
+    }
+
+    pickers.new({}, picker_opts):find()
+
+    return co
+end
+
+M.cmd_picker = function(cmd, opts)
     local cmd_stdout = util.run_cmd(cmd)
     if not cmd_stdout then
         vim.notify('Err: could not run cmd: ' .. cmd)
@@ -24,38 +69,7 @@ M.cmd_picker = function(cmd, opts)
         end
     end
 
-    local co = nil
-    local custom_mappings = nil
-    if opts.custom_select then
-        co = coroutine.running()
-        local custom_select = function(prompt_bufnr)
-            local selected_entry = actions_state.get_selected_entry()
-            opts.custom_select(selected_entry)
-            actions.close(prompt_bufnr)
-            coroutine.resume(co, selected_entry)
-        end
-
-        custom_mappings = function(_, map)
-            map('n', '<CR>', custom_select)
-            map('i', '<CR>', custom_select)
-            return true
-        end
-    end
-
-    local picker_opts = {
-        prompt_title = opts.prompt_title,
-        finder = finders.new_table({
-            results = entries,
-            entry_maker = opts.entry_maker,
-        }),
-        sorter = opts.sorter or conf.generic_sorter({}),
-        previewer = opts.previewer,
-        attach_mappings = custom_mappings,
-    }
-
-    pickers.new({}, picker_opts):find()
-
-    return co
+    return M.table_picker(entries, opts)
 end
 
 M.max_size_previewer = function(native_previwers)
@@ -79,6 +93,7 @@ M.max_size_previewer = function(native_previwers)
             end
 
             vim.loop.fs_open(filepath, 'r', 438, function(err, fd)
+                fd = fd or 0
                 if err then
                     -- NOTE: Ensure the file descriptor is closed in case of error
                     vim.loop.fs_close(fd)
