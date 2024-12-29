@@ -8,7 +8,7 @@ local markdown_preview = {
 
 local M = {
     extra_formatters = {
-        markdown = { 'prettierd' },
+        markdown = { 'prettier' },
     },
     extra_plugins = {
         markdown_preview,

@@ -9,10 +9,10 @@ end
 return {
     disable_lsp = true,
     extra_formatters = {
-        javascript = { 'prettierd' },
-        javascriptreact = { 'prettierd' },
-        typescript = { 'prettierd' },
-        typescriptreact = { 'prettierd' },
+        javascript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
     },
     extra_linters = {
         javascript = { 'eslint_d', extra_condition },
