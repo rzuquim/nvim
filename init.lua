@@ -21,6 +21,7 @@ plugins.setup('appearance.indent_guides')
 plugins.setup('appearance.trouble')
 plugins.setup('appearance.lsp_lines')
 
+plugins.setup('behavior.motions')
 plugins.setup('behavior.telescope')
 plugins.setup('behavior.conform')
 plugins.setup('behavior.lint')
