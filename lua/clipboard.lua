@@ -13,11 +13,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Not copying empty lines',
     group = vim.api.nvim_create_augroup('not-copy-empty', { clear = true }),
     callback = function()
-        local yanked_text = vim.v.event.regcontents[1]
+        local any_content = false
+        for _, line in ipairs(vim.v.event.regcontents) do
+            if not line:match('^%s*$') then
+                any_content = true
+                break
+            end
+        end
 
         -- NOTE: empty text should not be yanked
-        if not yanked_text:match('^%s*$') then
-            last_yanked.regcontents = yanked_text
+        if any_content then
+            last_yanked.regcontents = vim.v.event.regcontents
             last_yanked.regtype = vim.v.event.regtype
 
             return
