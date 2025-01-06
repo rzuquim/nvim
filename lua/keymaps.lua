@@ -43,8 +43,8 @@ keymap('n', '<leader>wq', ':cclose<CR>') -- closes qflist
 -- ----------------------
 keymap('n', '<A-Up>', ':m .-2<CR>') -- move live up
 keymap('n', '<A-Down>', ':m .+1<CR>') -- move live down
-keymap('v', '<A-Up>', ":m '<-2<CR>gv=gv") -- move selection up
-keymap('v', '<A-Down>', ":m '>+1<CR>gv=gv") -- move selection down
+keymap('v', '<A-Up>', 'xkP`[V`]') -- move selection up
+keymap('v', '<A-Down>', 'xp`[V`]') -- move selection down
 
 keymap('n', '<S-Tab>', '<<') -- untab with shift tab
 keymap('i', '<S-Tab>', '<C-d>') -- untab with shift tab
@@ -254,8 +254,6 @@ function M.gitsigns(buf, custom_toggle_blame)
     local gitsigns = require('gitsigns')
     local bufferScope = { buffer = buf }
 
-    keymap('n', '<A-j>', gitsigns.next_hunk, bufferScope)
-    keymap('n', '<A-k>', gitsigns.prev_hunk, bufferScope)
     keymap('n', '<leader>gs', gitsigns.preview_hunk, bufferScope)
     keymap('n', '<leader>gd', gitsigns.diffthis, bufferScope)
     keymap('n', '<leader>gb', custom_toggle_blame, bufferScope)
