@@ -32,6 +32,7 @@ local M = {
     taplo = require('langs.toml'),
     vtsls = require('langs.js'),
     sqlls = require('langs.sql'),
+    nginx_language_server = require('langs.devops').nginx,
     -- TODO: dockerfile
     -- TODO: gitignore
     -- TODO: sql
