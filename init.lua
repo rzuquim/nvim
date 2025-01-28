@@ -35,6 +35,7 @@ plugins.setup('behavior.tmux')
 -- TODO: support workspace_diagnostics without calling it always
 -- plugins.setup('behavior.workspace_diagnostics')
 plugins.setup('behavior.dap')
+plugins.setup('behavior.snippets')
 
 for _, plugin in pairs(langs.extra_plugins()) do
     plugins.setup(plugin, true)

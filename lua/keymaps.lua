@@ -264,13 +264,7 @@ function M.git_diff_view(actions)
     keymap('n', '<leader>/g', actions.custom_git_changed_files)
 end
 
--- utils for snippet "super-tab" behavior
-local check_backspace = function()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
-end
-
-function M.cmp(cmp, luasnip)
+function M.cmp(cmp)
     return {
         ['<Up>'] = cmp.mapping.select_prev_item(),
         ['<Down>'] = cmp.mapping.select_next_item(),
@@ -285,36 +279,15 @@ function M.cmp(cmp, luasnip)
 
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<C-Space>'] = cmp.mapping.complete({}),
-
-        ['<Tab>'] = cmp.mapping(function(fallback) -- navigates through the snippet fields
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expandable() then
-                luasnip.expand()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            elseif check_backspace() then
-                fallback()
-            else
-                fallback()
-            end
-        end, {
-            'i',
-            's',
-        }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback) -- backwards fields navigation
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, {
-            'i',
-            's',
-        }),
     }
+end
+
+function M.snippets(snippets_actions)
+    keymap('n', '<leader>/s', ':Telescope luasnip<CR>')
+    keymap('n', '<F6>', snippets_actions.jump_forward)
+    keymap('i', '<F6>', snippets_actions.jump_forward)
+    keymap('n', '<F7>', snippets_actions.jump_back)
+    keymap('i', '<F7>', snippets_actions.jump_back)
 end
 
 function M.multicursor(mc)
