@@ -3,7 +3,7 @@ local M = {
         'c_sharp',
     },
     extra_snippets = {
-        ['cs'] = require('snippets.charp'),
+        cs = require('snippets.charp'),
     },
     extra_dap = {},
 }

@@ -25,6 +25,12 @@ return {
         'tsx',
         'typescript',
     },
+    extra_snippets = {
+        javascript = require('snippets.js'),
+        javascriptreact = require('snippets.js'),
+        typescript = require('snippets.ts'),
+        typescriptreact = require('snippets.ts'),
+    },
     extra_plugins = {
         {
             'pmizio/typescript-tools.nvim',

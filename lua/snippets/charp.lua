@@ -3,7 +3,7 @@ return function(luasnip)
     local t = luasnip.text_node
     local i = luasnip.insert_node
 
-    luasnip.add_snippets('cs', {
+    return {
         s('docs', {
             t('/// <summary>'),
             t({ '', '/// ' }),
@@ -14,5 +14,5 @@ return function(luasnip)
         }),
         s('idocs', { t('/// <inheritdoc cref="'), i(1, 'ref'), t('" />') }),
         s('idocs!', t('/// <inheritdoc/>')),
-    })
+    }
 end
