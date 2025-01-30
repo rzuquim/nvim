@@ -18,10 +18,10 @@ end
 
 function M.close_curr_buffer()
     if vim.bo.modified then
-        vim.cmd('write')
+        vim.cmd('write!')
     end
 
-    vim.cmd('bdelete')
+    vim.cmd('bdelete!')
 end
 
 function M.run_cmd(cmd)
@@ -43,6 +43,16 @@ function M.local_dev_pwd()
         return nil
     end
     return dev_password
+end
+
+function M.quit()
+    if vim.g.neovide then
+        local choice = vim.fn.confirm('Quit?', '&Yes\n&No', 1)
+        if choice ~= 1 then
+            return
+        end
+    end
+    vim.cmd(':wqa!<CR>')
 end
 
 return M

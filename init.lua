@@ -2,6 +2,7 @@ require('options')
 require('autocmds')
 require('keymaps')
 require('clipboard')
+require('appearance.neovide')
 
 local langs = require('langs')
 local plugins = require('plugin_manager')
@@ -42,4 +43,3 @@ for _, plugin in pairs(langs.extra_plugins()) do
 end
 
 plugins.install()
-

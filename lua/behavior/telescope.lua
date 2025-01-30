@@ -18,6 +18,7 @@ local M = {
                 return vim.fn.executable('make') == 1
             end,
         },
+        'Allaman/emoji.nvim',
     },
 }
 
@@ -44,6 +45,9 @@ function M.config()
     -- Enable Telescope extensions if they are installed
     pcall(telescope.load_extension, 'fzf')
     pcall(telescope.load_extension, 'ui-select')
+    pcall(telescope.load_extension, 'emoji')
+
+    keymaps.telescope_extensions(telescope.extensions)
 end
 
 return M

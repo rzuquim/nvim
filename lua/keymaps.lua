@@ -34,7 +34,7 @@ keymap('n', '<A-->', ':vertical resize -2<CR>') -- resize left
 keymap('n', '<A-+>', ':vertical resize +2<CR>') -- resize right
 keymap('n', '<C-w>', util.close_curr_buffer) -- close buffer
 keymap('n', '<Tab>', '<C-^>') -- toggle buffers
-keymap('n', '<leader>ww', ':wqa!<CR>') -- Quit everything writing all buffers to the disk
+keymap('n', '<leader>ww', util.quit) -- Quit everything writing all buffers to the disk
 keymap('n', '<leader>we', ':%bd|e#<CR>') -- closes every buffer but the current one
 keymap('n', '<leader>wq', ':cclose<CR>') -- closes qflist
 
@@ -186,6 +186,10 @@ function M.telescope(telescope_builtin, telescope_actions)
             ['G'] = telescope_actions.move_to_bottom,
         }),
     }
+end
+
+function M.telescope_extensions(extensions)
+    keymap('n', '<leader>/e', extensions.emoji.emoji)
 end
 
 function M.oil()
@@ -350,6 +354,16 @@ function M.dap(dapui, dap, breakpoints)
     --      "<cmd>lua require'dap'.pause()<cr>",
     --      "<cmd>lua require'dap'.repl.toggle()<cr>",
     --      "<cmd>lua require'dap'.close()<cr>",
+    --
+end
+
+function M.neovide(actions)
+    keymap('n', '<C-+>', actions.font_incr) -- bigger font
+    keymap('n', '<C-->', actions.font_decr) -- smaller font
+    keymap('n', '<C-=>', actions.font_reset) -- regular size
+
+    keymap('c', '<C-V>', '<C-R>+') -- Paste command mode
+    keymap('i', '<C-V>', '<ESC>l"+Pli') -- Paste insert mode
 end
 
 return M
