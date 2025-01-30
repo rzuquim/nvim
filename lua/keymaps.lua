@@ -212,10 +212,11 @@ function M.oil()
     }
 end
 
-function M.lsp(buf, lsp_find_references)
+function M.lsp(buf, lsp_find_references, langs)
     local telescope_builtin = require('telescope.builtin')
     local bufferScope = { buffer = buf }
     -- go to definition, usages, go to implementation and rename
+    keymap('n', '<F1>', langs.help, bufferScope)
     keymap('n', '<F12>', telescope_builtin.lsp_definitions, bufferScope)
 
     keymap('n', '<F36>', telescope_builtin.lsp_implementations, bufferScope)

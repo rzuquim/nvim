@@ -57,7 +57,7 @@ function M.config()
     vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('keymaps-lsp-attach', { clear = true }),
         callback = function(evt)
-            keymaps.lsp(evt.buf, lsp_find_references)
+            keymaps.lsp(evt.buf, lsp_find_references, langs)
         end,
     })
 

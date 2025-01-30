@@ -12,6 +12,7 @@ local treesitter_langs = {}
 local extra_plugins = {}
 local extra_dap_config = {}
 local extra_snippets = {}
+local custom_help = {}
 
 -- NOTE: for config examples see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local M = {
@@ -75,11 +76,26 @@ local M = {
     extra_snippets = function()
         return extra_snippets
     end,
+
+    help = function()
+        local word = vim.fn.expand('<cword>')
+        local filetype = vim.bo.filetype
+
+        if not custom_help[filetype] then
+            return
+        end
+
+        custom_help[filetype](word)
+    end,
 }
 
 for lang, settings in pairs(M) do
     if type(settings) ~= 'function' then
         table.insert(ensure_installed, lang)
+
+        if settings.setup_custom_help then
+            settings.setup_custom_help(custom_help)
+        end
 
         if settings.extra_formatters then
             for ft, formatters in pairs(settings.extra_formatters) do
