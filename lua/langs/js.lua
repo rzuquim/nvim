@@ -46,4 +46,7 @@ return {
             end,
         },
     },
+    -- TODO: figure out workspace diagnostics
+    extensions = { 'js', 'jsx', 'ts', 'tsx' },
+    diagnostics = function() end,
 }

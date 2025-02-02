@@ -33,8 +33,6 @@ plugins.setup('behavior.auto_complete')
 plugins.setup('behavior.mini_helpers')
 plugins.setup('behavior.auto_save')
 plugins.setup('behavior.tmux')
--- TODO: support workspace_diagnostics without calling it always
--- plugins.setup('behavior.workspace_diagnostics')
 plugins.setup('behavior.dap')
 plugins.setup('behavior.snippets')
 

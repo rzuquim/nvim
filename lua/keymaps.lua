@@ -88,14 +88,6 @@ keymap('n', '<A-n>', ':cnext<CR>') -- next quickfix item
 keymap('n', '<A-p>', ':cprev<CR>') -- previous quickfix item
 
 -- ----------------------
--- Diagnostics
--- ----------------------
-keymap('n', 'E', vim.diagnostic.goto_prev)
-keymap('n', 'e', vim.diagnostic.goto_next)
-keymap('n', '<leader>ee', '<cmd>Trouble diagnostics toggle<CR>')
-keymap('n', '<leader>ef', vim.diagnostic.open_float)
-
--- ----------------------
 -- Copy/Paste
 -- ---------------------
 
@@ -365,6 +357,13 @@ function M.neovide(actions)
 
     keymap('c', '<C-V>', '<C-R>+') -- Paste command mode
     keymap('i', '<C-V>', '<ESC>l"+Pli') -- Paste insert mode
+end
+
+function M.diagnostics(actions)
+    keymap('n', 'E', vim.diagnostic.goto_prev)
+    keymap('n', 'e', vim.diagnostic.goto_next)
+    keymap('n', '<leader>ee', actions.workspace_diagnostics)
+    keymap('n', '<leader>ef', vim.diagnostic.open_float)
 end
 
 return M
