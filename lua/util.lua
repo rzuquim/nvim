@@ -55,4 +55,23 @@ function M.quit()
     vim.cmd(':wqa!<CR>')
 end
 
+function M.line_breaks_replace()
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+    local new_lines = {}
+    for _, line in ipairs(lines) do
+        local is_match = false
+        for subline in line:gmatch('([^\\]*)[\\r]?\\n') do
+            is_match = true
+            table.insert(new_lines, subline)
+        end
+
+        if not is_match then
+            table.insert(new_lines, line)
+        end
+    end
+
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
+end
+
 return M

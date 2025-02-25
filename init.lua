@@ -1,5 +1,6 @@
 require('options')
 require('autocmds')
+require('cmds')
 require('keymaps')
 require('clipboard')
 require('appearance.neovide')
