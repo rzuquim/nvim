@@ -10,3 +10,4 @@ deactivate
 ```
 
 - [ ] **2025-04-29**: `+` and `-` keybindings not incrementing
+- [ ] **2025-04-30**: retire `dressing.nvim` in favor of `https://github.com/folke/snacks.nvim/blob/main/docs/input.md`

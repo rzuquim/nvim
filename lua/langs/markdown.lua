@@ -6,12 +6,17 @@ local markdown_preview = {
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
 }
 
+local markdown_navigation = {
+    'jakewvincent/mkdnflow.nvim',
+}
+
 local M = {
     extra_formatters = {
         markdown = { 'prettier' },
     },
     extra_plugins = {
         markdown_preview,
+        markdown_navigation,
         -- TODO: add image support: [@linkarzu](https://github.com/linkarzu/dotfiles-latest)
     },
 }
@@ -126,6 +131,26 @@ function markdown_preview.config()
         callback = function(evt)
             keymaps.markdown(evt.buf, md_code_action)
         end,
+    })
+end
+
+function markdown_navigation.config()
+    require('mkdnflow').setup({
+        modules = {
+            buffers = true,
+            conceal = true,
+            links = true,
+            cursor = true,
+            paths = true,
+            maps = true,
+            tables = false,
+            yaml = false,
+            bib = false,
+            folds = false,
+            foldtext = false,
+            lists = false,
+            cmp = false,
+        },
     })
 end
 
