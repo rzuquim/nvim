@@ -68,6 +68,16 @@ function markdown_preview.config()
         end,
     })
 
+    local function write_today()
+        local date = os.date('%Y-%m-%d')
+
+        local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+        local line = vim.api.nvim_get_current_line()
+
+        local new_line = line:sub(1, col) .. date .. line:sub(col + 1)
+        vim.api.nvim_set_current_line(new_line)
+    end
+
     local function convert_to_pdf()
         local filepath = vim.fn.expand('%:p')
 
@@ -106,6 +116,7 @@ function markdown_preview.config()
             'Add word into dict',
             'Convert to pdf',
             'Create a link',
+            'Print Today (current day)',
             'Code actions',
         }
 
@@ -122,6 +133,8 @@ function markdown_preview.config()
                 convert_to_pdf()
             elseif index == 4 then
                 vim.api.nvim_command('MkdnCreateLink')
+            elseif index == 5 then
+                write_today()
             else
                 vim.lsp.buf.code_action()
             end
@@ -154,7 +167,43 @@ function markdown_navigation.config()
             lists = false,
             cmp = false,
         },
-        mappings = {},
+        mappings = {
+            MkdnEnter = false,
+            MkdnTab = false,
+            MkdnSTab = false,
+            MkdnNextLink = false,
+            MkdnPrevLink = false,
+            MkdnNextHeading = false,
+            MkdnPrevHeading = false,
+            MkdnGoBack = false,
+            MkdnGoForward = false,
+            MkdnCreateLink = false,
+            MkdnCreateLinkFromClipboard = false,
+            MkdnFollowLink = false,
+            MkdnDestroyLink = false,
+            MkdnTagSpan = false,
+            MkdnMoveSource = false,
+            MkdnYankAnchorLink = false,
+            MkdnYankFileAnchorLink = false,
+            MkdnIncreaseHeading = false,
+            MkdnDecreaseHeading = false,
+            MkdnToggleToDo = false,
+            MkdnNewListItem = false,
+            MkdnNewListItemBelowInsert = false,
+            MkdnNewListItemAboveInsert = false,
+            MkdnExtendList = false,
+            MkdnUpdateNumbering = false,
+            MkdnTableNextCell = false,
+            MkdnTablePrevCell = false,
+            MkdnTableNextRow = false,
+            MkdnTablePrevRow = false,
+            MkdnTableNewRowBelow = false,
+            MkdnTableNewRowAbove = false,
+            MkdnTableNewColAfter = false,
+            MkdnTableNewColBefore = false,
+            MkdnFoldSection = false,
+            MkdnUnfoldSection = false,
+        },
     })
 end
 
