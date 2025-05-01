@@ -105,6 +105,7 @@ function markdown_preview.config()
             'Spell suggestions',
             'Add word into dict',
             'Convert to pdf',
+            'Create a link',
             'Code actions',
         }
 
@@ -119,6 +120,8 @@ function markdown_preview.config()
                 add_word_in_spellfile(cursor_word)
             elseif index == 3 then
                 convert_to_pdf()
+            elseif index == 4 then
+                vim.api.nvim_command('MkdnCreateLink')
             else
                 vim.lsp.buf.code_action()
             end
@@ -151,6 +154,7 @@ function markdown_navigation.config()
             lists = false,
             cmp = false,
         },
+        mappings = {},
     })
 end
 

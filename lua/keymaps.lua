@@ -207,9 +207,14 @@ end
 function M.lsp(buf, lsp_find_references, langs)
     local telescope_builtin = require('telescope.builtin')
     local bufferScope = { buffer = buf }
-    -- go to definition, usages, go to implementation and rename
+    local filetype = vim.api.nvim_buf_get_option(buf, 'filetype')
+
     keymap('n', '<F1>', langs.help, bufferScope)
-    keymap('n', '<F12>', telescope_builtin.lsp_definitions, bufferScope)
+
+    -- NOTE: in markdown I will use F12 to follow links (navigate between files)
+    if filetype ~= 'markdown' then
+        keymap('n', '<F12>', telescope_builtin.lsp_definitions, bufferScope)
+    end
 
     keymap('n', '<F36>', telescope_builtin.lsp_implementations, bufferScope)
     keymap('n', '<F2>', vim.lsp.buf.rename, bufferScope)
@@ -315,6 +320,7 @@ function M.markdown(buf, code_action)
     keymap('n', 'e', ']s', bufferScope)
     keymap('n', 'E', '[s', bufferScope)
     keymap('n', 't', code_action, bufferScope)
+    keymap('n', '<F12>', ':MkdnFollowLink<CR>')
 end
 
 function M.dap(dapui, dap, breakpoints)
