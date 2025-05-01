@@ -8,6 +8,12 @@ local markdown_preview = {
 
 local markdown_navigation = {
     'jakewvincent/mkdnflow.nvim',
+    ft = 'markdown',
+}
+
+local emoji = {
+    'allaman/emoji.nvim',
+    ft = 'markdown',
 }
 
 local M = {
@@ -17,9 +23,14 @@ local M = {
     extra_plugins = {
         markdown_preview,
         markdown_navigation,
+        emoji,
         -- TODO: add image support: [@linkarzu](https://github.com/linkarzu/dotfiles-latest)
     },
 }
+
+function emoji.config()
+    require('emoji').setup({})
+end
 
 function markdown_preview.config()
     local telescope_builtin = require('telescope.builtin')
@@ -117,6 +128,7 @@ function markdown_preview.config()
             'Convert to pdf',
             'Create a link',
             'Print Today (current day)',
+            'Emoji',
             'Code actions',
         }
 
@@ -135,6 +147,9 @@ function markdown_preview.config()
                 vim.api.nvim_command('MkdnCreateLink')
             elseif index == 5 then
                 write_today()
+            elseif index == 6 then
+                local ts = require('telescope').load_extension('emoji')
+                ts.emoji()
             else
                 vim.lsp.buf.code_action()
             end
