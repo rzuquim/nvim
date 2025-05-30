@@ -1,12 +1,12 @@
 local keymaps = require('keymaps')
 
-local markdown_preview = {
+local render = {
     'MeanderingProgrammer/render-markdown.nvim',
     ft = 'markdown',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
 }
 
-local markdown_navigation = {
+local navigation = {
     'jakewvincent/mkdnflow.nvim',
     ft = 'markdown',
 }
@@ -16,15 +16,27 @@ local emoji = {
     ft = 'markdown',
 }
 
+local preview = {
+    'brianhuster/live-preview.nvim',
+    ft = 'markdown',
+    config = function()
+        require('livepreview.config').set({
+            browser = 'bash ~/.config/nvim/sh/markdown_preview.sh ',
+            picker = 'telescope',
+            dynamic_root = false,
+        })
+    end,
+}
+
 local M = {
     extra_formatters = {
         markdown = { 'prettier' },
     },
     extra_plugins = {
-        markdown_preview,
-        markdown_navigation,
+        render,
+        navigation,
         emoji,
-        -- TODO: add image support: [@linkarzu](https://github.com/linkarzu/dotfiles-latest)
+        preview,
     },
 }
 
@@ -32,7 +44,7 @@ function emoji.config()
     require('emoji').setup({})
 end
 
-function markdown_preview.config()
+function render.config()
     local telescope_builtin = require('telescope.builtin')
     require('render-markdown').setup({
         heading = {
@@ -129,6 +141,7 @@ function markdown_preview.config()
             'Create a link',
             'Print Today (current day)',
             'Emoji',
+            'Toggle preview',
             'Code actions',
         }
 
@@ -150,6 +163,12 @@ function markdown_preview.config()
             elseif index == 6 then
                 local ts = require('telescope').load_extension('emoji')
                 ts.emoji()
+            elseif index == 7 then
+                if not require('livepreview').is_running() then
+                    vim.api.nvim_command('LivePreview start')
+                else
+                    vim.api.nvim_command('LivePreview close')
+                end
             else
                 vim.lsp.buf.code_action()
             end
@@ -165,7 +184,7 @@ function markdown_preview.config()
     })
 end
 
-function markdown_navigation.config()
+function navigation.config()
     require('mkdnflow').setup({
         modules = {
             buffers = true,

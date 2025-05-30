@@ -9,11 +9,20 @@ pip install setuptools
 deactivate
 ```
 
-- [ ] **2025-04-29**: `+` and `-` keybindings not incrementing not working sporadically
+- [x] **2025-04-29**: `+` and `-` keybindings not incrementing not working sporadically
+
+```text
+my zsa keyboard map was using numpad+ and - instead of the regular ones
+```
+
 - [ ] **2025-04-30**: retire `dressing.nvim` in favor of `https://github.com/folke/snacks.nvim/blob/main/docs/input.md`
 - [x] **2025-04-30**: today "macro"
 - [x] **2025-04-30**: enter on md should not create link (transform in "LSP Action")
 - [x] **2025-04-30**: navigate to link on md should run in "go to definition" shortcut
 - [ ] **2025-04-30**: remove snippets from LSP Servers
-- [ ] **2025-05-01**: emojis
+- [x] **2025-05-01**: emojis
 - [ ] **2025-05-02**: better support for markdown tables
+- [x] **2025-05-02**: markdown preview
+- [ ] **2025-05-30**: close browser when leaving nvim
+- [ ] **2025-05-30**: sync browser navigation when changing focused md file (following links)
+- [ ] **2025-05-30**: do not focus on browser on md preview (~/.config/hypr/\_window_rules.conf)
