@@ -1,3 +1,10 @@
+## 🏆 Improvements
+
+- [x] **2025-05-30**: close browser when leaving nvim
+- [x] **2025-05-30**: do not focus on browser on md preview (~/.config/hypr/\_window_rules.conf)
+- [ ] **2025-05-30**: sync browser navigation when changing focused md file (following links)
+- [ ] **2025-05-30**: smart order on markdown actions (eg. First action should be start preview if not already running)
+
 ##  Bugs
 
 - [x] **2025-04-29**: `beautysh` not working `ModuleNotFoundError: No module named 'pkg_resources'`
@@ -21,8 +28,6 @@ my zsa keyboard map was using numpad+ and - instead of the regular ones
 - [x] **2025-04-30**: navigate to link on md should run in "go to definition" shortcut
 - [ ] **2025-04-30**: remove snippets from LSP Servers
 - [x] **2025-05-01**: emojis
-- [ ] **2025-05-02**: better support for markdown tables
+- [ ] **2025-05-02**: support markdown tables
 - [x] **2025-05-02**: markdown preview
-- [ ] **2025-05-30**: close browser when leaving nvim
-- [ ] **2025-05-30**: sync browser navigation when changing focused md file (following links)
-- [ ] **2025-05-30**: do not focus on browser on md preview (~/.config/hypr/\_window_rules.conf)
+- [ ] **2025-05-30**: quotes and code blocks not rendering on first live-preview render

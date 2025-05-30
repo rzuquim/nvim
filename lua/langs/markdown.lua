@@ -20,10 +20,11 @@ local preview = {
     'brianhuster/live-preview.nvim',
     ft = 'markdown',
     config = function()
+        local nvim_pid = vim.fn.getpid()
         require('livepreview.config').set({
-            browser = 'bash ~/.config/nvim/sh/markdown_preview.sh ',
+            browser = 'bash ~/.config/nvim/sh/markdown_preview.sh ' .. nvim_pid,
             picker = 'telescope',
-            dynamic_root = false,
+            -- dynamic_root = false,
         })
     end,
 }
@@ -133,6 +134,19 @@ function render.config()
         end)
     end
 
+    local function toggle_preview()
+        if not require('livepreview').is_running() then
+            vim.api.nvim_command('LivePreview start')
+        else
+            -- NOTE: the ../../sh/markdown_preview.sh watches for this file to ensure the browser will be closed
+            local nvim_pid = vim.fn.getpid()
+            local pid_file = '/tmp/nvim_preview_' .. nvim_pid .. '.pid'
+            os.remove(pid_file)
+
+            vim.api.nvim_command('LivePreview close')
+        end
+    end
+
     local function md_code_action()
         local options = {
             'Spell suggestions',
@@ -164,11 +178,7 @@ function render.config()
                 local ts = require('telescope').load_extension('emoji')
                 ts.emoji()
             elseif index == 7 then
-                if not require('livepreview').is_running() then
-                    vim.api.nvim_command('LivePreview start')
-                else
-                    vim.api.nvim_command('LivePreview close')
-                end
+                toggle_preview()
             else
                 vim.lsp.buf.code_action()
             end
