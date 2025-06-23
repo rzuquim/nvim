@@ -32,6 +32,8 @@ function M.config()
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+    -- NOTE: disabling snippets on cmp in favor of explicitly searching then
+    capabilities.textDocument.completion.completionItem.snippetSupport = false
 
     mason.setup()
     mason_installer.setup({ ensure_installed = langs.ensure_installed() })

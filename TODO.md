@@ -26,7 +26,7 @@ my zsa keyboard map was using numpad+ and - instead of the regular ones
 - [x] **2025-04-30**: today "macro"
 - [x] **2025-04-30**: enter on md should not create link (transform in "LSP Action")
 - [x] **2025-04-30**: navigate to link on md should run in "go to definition" shortcut
-- [ ] **2025-04-30**: remove snippets from LSP Servers
+- [x] **2025-04-30**: remove snippets from LSP Servers
 - [x] **2025-05-01**: emojis
 - [ ] **2025-05-02**: support markdown tables
 - [x] **2025-05-02**: markdown preview
