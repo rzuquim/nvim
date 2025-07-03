@@ -37,6 +37,10 @@ keymap('n', '<Tab>', '<C-^>') -- toggle buffers
 keymap('n', '<leader>ww', util.quit) -- Quit everything writing all buffers to the disk
 keymap('n', '<leader>we', ':%bd|e#<CR>') -- closes every buffer but the current one
 keymap('n', '<leader>wq', ':cclose<CR>') -- closes qflist
+keymap('n', '<leader>wb', function()
+    util.close_all_buffers()
+    require('oil').open()
+end)
 
 -- ----------------------
 -- Move lines
@@ -366,8 +370,13 @@ function M.neovide(actions)
 end
 
 function M.diagnostics(actions)
-    keymap('n', 'E', vim.diagnostic.goto_prev)
-    keymap('n', 'e', vim.diagnostic.goto_next)
+    keymap('n', 'E', function()
+        vim.diagnostic.jump({ count = 1, float = true })
+    end)
+    keymap('n', 'e', function()
+        vim.diagnostic.jump({ count = -1, float = true })
+    end)
+
     keymap('n', '<leader>ee', actions.workspace_diagnostics)
     keymap('n', '<leader>ef', vim.diagnostic.open_float)
 end

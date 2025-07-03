@@ -24,6 +24,14 @@ function M.close_curr_buffer()
     vim.cmd('bdelete!')
 end
 
+function M.close_all_buffers()
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].buflisted then
+            vim.api.nvim_buf_delete(bufnr, { force = true })
+        end
+    end
+end
+
 function M.run_cmd(cmd)
     local handle = io.popen(cmd)
     if handle == nil then
