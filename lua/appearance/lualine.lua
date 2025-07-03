@@ -2,14 +2,14 @@ local util = require('util')
 local theme = require('appearance.theme')
 
 local pwd = vim.fn.getcwd()
-local last_dir = ''
+local proj_dir = ''
 if vim.fn.has('win32') == 1 then
     for path in string.gmatch(pwd, '[^\\]+') do -- iterate through dirs
-        last_dir = path
+        proj_dir = path
     end
 else
     for path in string.gmatch(pwd, '[^/]+') do -- iterate through dirs
-        last_dir = path
+        proj_dir = path
     end
 end
 
@@ -56,7 +56,7 @@ local bg_color = string.format('#%02x%02x%02x', r, g, b)
 
 local currentProject = {
     function()
-        return last_dir
+        return proj_dir
     end,
     color = { bg = bg_color },
     separator = { right = '' },
@@ -87,7 +87,7 @@ local M = {
                 currentProject,
             },
             lualine_b = { 'branch', 'diff', 'diagnostics' },
-            lualine_c = { { 'macro_recording', fmt = show_macro_recording }, 'mode', 'filename' },
+            lualine_c = { { 'macro_recording', fmt = show_macro_recording }, 'mode', { 'filename', path = 4 } },
             lualine_x = { 'encoding', 'filetype' },
             lualine_y = { 'progress' },
             lualine_z = {
