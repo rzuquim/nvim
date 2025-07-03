@@ -82,4 +82,10 @@ function M.line_breaks_replace()
     vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
 end
 
+function M.to_snake_case(args)
+    local text = args[1][1] or ''
+    local snake = text:gsub('(%u)', '_%1'):gsub('^_', ''):lower()
+    return snake
+end
+
 return M

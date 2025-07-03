@@ -7,6 +7,9 @@ return {
     extra_treesitter = {
         'rust',
     },
+    extra_snippets = {
+        rust = require('snippets.rust'),
+    },
     setup_custom_help = function(custom_help)
         custom_help['rust'] = function(word)
             local cwd = vim.fn.getcwd()
