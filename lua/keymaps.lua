@@ -230,6 +230,11 @@ function M.lsp(buf, lsp_find_references, langs)
     keymap('n', '?', vim.lsp.buf.hover, bufferScope)
     keymap('n', '<leader>?', vim.lsp.buf.signature_help, bufferScope)
     keymap('n', 't', vim.lsp.buf.code_action, bufferScope)
+
+    -- inlay hints
+    keymap('n', '<leader>h', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end)
 end
 
 function M.format(conform)
