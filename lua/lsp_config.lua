@@ -14,12 +14,20 @@ local M = {
 local langs = require('langs')
 local keymaps = require('keymaps')
 
-function lsp_find_references()
+local function lsp_find_references()
     local telescope_builtin = require('telescope.builtin')
     telescope_builtin.lsp_references({
         include_declaration = false,
         include_current_line = false,
     })
+end
+
+local function with_border(handler)
+    return function(config)
+        config = config or {}
+        config.border = 'rounded'
+        return handler(config)
+    end
 end
 
 function M.config()
@@ -54,6 +62,9 @@ function M.config()
             end,
         },
     })
+
+    vim.lsp.buf.hover = with_border(vim.lsp.buf.hover)
+    vim.lsp.buf.signature_help = with_border(vim.lsp.buf.signature_help)
 
     vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('keymaps-lsp-attach', { clear = true }),

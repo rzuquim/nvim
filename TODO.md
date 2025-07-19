@@ -5,6 +5,7 @@
 - [ ] **2025-05-30**: sync browser navigation when changing focused md file (following links)
 - [ ] **2025-05-30**: smart order on markdown actions (eg. First action should be start preview if not already running)
 - [x] **2025-07-19**: toggle inlay hints
+- [x] **2025-07-19**: window borders
 
 ##  Bugs
 
