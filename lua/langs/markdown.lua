@@ -189,7 +189,11 @@ function render.config()
     vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('markdown-code-actions', { clear = true }),
         callback = function(evt)
-            keymaps.markdown(evt.buf, md_code_action)
+            local filetype = vim.api.nvim_buf_get_option(evt.buf, 'filetype')
+
+            if filetype == 'markdown' then
+                keymaps.markdown(evt.buf, md_code_action)
+            end
         end,
     })
 end
