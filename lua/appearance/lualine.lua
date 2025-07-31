@@ -75,6 +75,35 @@ local function show_macro_recording()
     end
 end
 
+local function visual_selection_count()
+    local mode = vim.fn.mode()
+    local visual_block = '\22' -- INFO: CTRL-V
+    if mode ~= 'v' and mode ~= 'V' and mode ~= visual_block then
+        return ''
+    end
+
+    local start_pos = vim.fn.getpos('v')
+    local end_pos = vim.fn.getpos('.')
+    local start_row, start_col = start_pos[2], start_pos[3]
+    local end_row, end_col = end_pos[2], end_pos[3]
+
+    if start_row > end_row or (start_row == end_row and start_col > end_col) then
+        start_row, end_row = end_row, start_row
+        start_col, end_col = end_col, start_col
+    end
+
+    if mode == 'v' then
+        local line = vim.fn.getline(start_row):sub(start_col, end_col)
+        return string.format(' %d chars', #line)
+    elseif mode == 'V' then
+        return string.format(' %d lines', end_row - start_row + 1)
+    elseif mode == '\22' then
+        return string.format(' %d×%d', end_row - start_row + 1, math.abs(end_col - start_col) + 1)
+    end
+
+    return ''
+end
+
 local M = {
     'nvim-lualine/lualine.nvim', -- status line
     event = 'VeryLazy',
@@ -92,6 +121,7 @@ local M = {
             lualine_y = { 'progress' },
             lualine_z = {
                 { 'location', color = { bg = bg_color }, separator = { left = '' } },
+                { 'selection', fmt = visual_selection_count, color = { bg = bg_color } },
             },
         },
     },
