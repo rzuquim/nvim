@@ -9,11 +9,16 @@ return function(luasnip, snippet_opts)
     local rep = require('luasnip.extras').rep
 
     return {
+        s('prelude', {
+            t({
+                'use crate::prelude::*;',
+            }),
+        }),
         s('bevy_plugin', {
             t({
-                'use crate::prelude::*',
+                'use crate::prelude::*;',
                 '',
-                'pub struct Plugin',
+                'pub struct Plugin;',
                 '',
                 'impl bevy::app::Plugin for Plugin {',
                 '    fn build(&self, app: &mut App) {',
@@ -30,16 +35,16 @@ return function(luasnip, snippet_opts)
         -- Parameters
         -- ################
         s(
-            'bevy_event_writer',
-            fmt('mut evts: EventWriter<{}>', {
-                i(1, 'MyEvent'),
+            'bevy_msg_writer',
+            fmt('mut msgs: MessageWriter<{}>', {
+                i(1, 'MyMessage'),
             })
         ),
 
         s(
-            'bevy_event_reader',
-            fmt('mut evts: EventReader<{}>', {
-                i(1, 'MyEvent'),
+            'bevy_msg_reader',
+            fmt('mut msgs: MessageReader<{}>', {
+                i(1, 'MyMessage'),
             })
         ),
 
@@ -104,16 +109,16 @@ pub struct {} {{
         ),
 
         s(
-            'bevy_event',
+            'bevy_msg',
             fmt(
                 [[
-#[derive(Event, Debug)]
+#[derive(Message, Debug)]
 pub struct {} {{
     {}
 }}
 ]],
                 {
-                    i(1, 'MyEvent'),
+                    i(1, 'MyMessage'),
                     i(2),
                 }
             )
