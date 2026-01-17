@@ -3,6 +3,11 @@ return {
         diagnostics = {
             enable = false,
         },
+        ['rust-analyzer'] = {
+            checkOnSave = {
+                command = 'clippy',
+            },
+        },
     },
     extra_treesitter = {
         'rust',
