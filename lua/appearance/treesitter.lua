@@ -16,6 +16,7 @@ local M = {
             enable = true,
             disable = {
                 'liquid', -- FIX: use ident on liquid files
+                'latex'
             },
         },
     },

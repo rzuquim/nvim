@@ -41,4 +41,6 @@ for _, plugin in pairs(langs.extra_plugins()) do
     plugins.setup(plugin, true)
 end
 
+plugins.setup('langs.latex')
+
 plugins.install()
