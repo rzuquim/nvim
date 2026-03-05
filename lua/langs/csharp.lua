@@ -1,4 +1,27 @@
 local M = {
+    cmd = {
+        'dotnet',
+        vim.fn.stdpath('data') .. '/mason/packages/omnisharp/libexec/OmniSharp.dll',
+    },
+    settings = {},
+    on_attach = function(client, _)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+    end,
+    extra_formatters = {
+        cs = {
+            {
+                'csharpier',
+                config = function()
+                    return {
+                        command = vim.fn.stdpath('data') .. '/mason/bin/csharpier',
+                        args = { 'format' },
+                        stdin = true,
+                    }
+                end,
+            },
+        },
+    },
     extra_treesitter = {
         'c_sharp',
     },
