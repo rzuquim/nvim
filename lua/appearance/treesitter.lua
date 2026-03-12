@@ -1,4 +1,5 @@
 local langs = require('langs')
+local keymap = require('keymaps')
 
 local M = {
     'nvim-treesitter/nvim-treesitter',
@@ -16,8 +17,30 @@ local M = {
             enable = true,
             disable = {
                 'liquid', -- FIX: use ident on liquid files
-                'latex'
+                'latex',
             },
+        },
+    },
+}
+
+local N = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    init = function()
+        -- Disable entire built-in ftplugin mappings to avoid conflicts.
+        vim.g.no_plugin_maps = true
+    end,
+    opts = {
+        select = {
+            lookahead = true,
+            selection_modes = {
+                ['@parameter.outer'] = 'v', -- charwise
+                ['@function.outer'] = 'V', -- linewise
+                -- ['@class.outer'] = '<c-v>', -- blockwise
+            },
+            include_surrounding_whitespace = false,
+        },
+        move = {
+            set_jumps = true,
         },
     },
 }
@@ -26,11 +49,15 @@ function M.config(_, opts)
     -- NOTE: Prefer git instead of curl in order to improve connectivity in some environments
     require('nvim-treesitter.install').prefer_git = true
     require('nvim-treesitter.configs').setup(opts)
-
-    -- TODO: Check additional nvim-treesitter modules that you can use to interact
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 end
 
-return M
+function N.config(_, opts)
+    require('nvim-treesitter-textobjects').setup(opts)
+
+    local ts_select = require('nvim-treesitter-textobjects.select')
+    local ts_swap = require('nvim-treesitter-textobjects.swap')
+    local ts_move = require('nvim-treesitter-textobjects.move')
+    keymap.treesitter(ts_select, ts_swap, ts_move)
+end
+
+return { M, N }

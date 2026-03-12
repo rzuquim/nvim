@@ -386,4 +386,46 @@ function M.diagnostics(actions)
     keymap('n', '<leader>ef', vim.diagnostic.open_float)
 end
 
+function M.treesitter(ts_select, ts_swap, ts_move)
+    keymap({ 'x', 'o' }, 'af', function()
+        ts_select.select_textobject('@function.outer', 'textobjects')
+    end)
+
+    keymap({ 'x', 'o' }, 'if', function()
+        ts_select.select_textobject('@function.inner', 'textobjects')
+    end)
+
+    keymap({ 'x', 'o' }, 'ac', function()
+        ts_select.select_textobject('@class.outer', 'textobjects')
+    end)
+
+    keymap({ 'x', 'o' }, 'ic', function()
+        ts_select.select_textobject('@class.inner', 'textobjects')
+    end)
+
+    keymap('n', ']a', function()
+        ts_swap.swap_next('@parameter.inner')
+    end)
+
+    keymap('n', '[a', function()
+        ts_swap.swap_previous('@parameter.inner')
+    end)
+
+    keymap({ 'n', 'x', 'o' }, ']]', function()
+        ts_move.goto_next_start('@function.outer', 'textobjects')
+    end)
+
+    keymap({ 'n', 'x', 'o' }, ']c', function()
+        ts_move.goto_next_start('@class.outer', 'textobjects')
+    end)
+
+    keymap({ 'n', 'x', 'o' }, '[', function()
+        ts_move.goto_previous_start('@function.outer', 'textobjects')
+    end)
+
+    keymap({ 'n', 'x', 'o' }, '[c', function()
+        ts_move.goto_previous_start('@class.outer', 'textobjects')
+    end)
+end
+
 return M
