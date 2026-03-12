@@ -88,4 +88,17 @@ function M.to_snake_case(args)
     return snake
 end
 
+function M.toggle_preview()
+    if not require('livepreview').is_running() then
+        vim.api.nvim_command('LivePreview start')
+    else
+        -- NOTE: the ../../sh/markdown_preview.sh watches for this file to ensure the browser will be closed
+        local nvim_pid = vim.fn.getpid()
+        local pid_file = '/tmp/nvim_preview_' .. nvim_pid .. '.pid'
+        os.remove(pid_file)
+
+        vim.api.nvim_command('LivePreview close')
+    end
+end
+
 return M

@@ -1,4 +1,5 @@
 local keymaps = require('keymaps')
+local util = require('util')
 
 local render = {
     'MeanderingProgrammer/render-markdown.nvim',
@@ -29,6 +30,10 @@ local preview = {
     end,
 }
 
+local screenplay = {
+    'kblin/vim-fountain',
+}
+
 local M = {
     extra_formatters = {
         markdown = { 'prettier' },
@@ -38,6 +43,7 @@ local M = {
         navigation,
         emoji,
         preview,
+        screenplay,
     },
 }
 
@@ -134,19 +140,6 @@ function render.config()
         end)
     end
 
-    local function toggle_preview()
-        if not require('livepreview').is_running() then
-            vim.api.nvim_command('LivePreview start')
-        else
-            -- NOTE: the ../../sh/markdown_preview.sh watches for this file to ensure the browser will be closed
-            local nvim_pid = vim.fn.getpid()
-            local pid_file = '/tmp/nvim_preview_' .. nvim_pid .. '.pid'
-            os.remove(pid_file)
-
-            vim.api.nvim_command('LivePreview close')
-        end
-    end
-
     local function md_code_action()
         local options = {
             'Spell suggestions',
@@ -178,7 +171,7 @@ function render.config()
                 local ts = require('telescope').load_extension('emoji')
                 ts.emoji()
             elseif index == 7 then
-                toggle_preview()
+                util.toggle_preview()
             else
                 vim.lsp.buf.code_action()
             end

@@ -29,4 +29,14 @@ M.emmet = {
     },
 }
 
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'html',
+    callback = function()
+        vim.api.nvim_buf_create_user_command(0, 'PreviewToggle', function()
+            local util = require('util')
+            util.toggle_preview()
+        end, {})
+    end,
+})
+
 return M
