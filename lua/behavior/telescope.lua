@@ -35,7 +35,7 @@ function M.config()
         defaults = {
             mappings = mappings,
             buffer_previewer_maker = helpers.max_size_previewer(previewers),
-            file_ignore_patterns = { '%.lock$', 'package%-lock%.json$', '%.cs.meta$' },
+            file_ignore_patterns = { '%.lock$', 'package%-lock%.json$', '%.cs.meta$', '%.unity.meta$', '%.asset$' },
         },
         extensions = {
             ['ui-select'] = { themes.get_dropdown() },
