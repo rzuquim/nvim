@@ -34,7 +34,6 @@ function M.config()
     local mason = require('mason')
     local mason_installer = require('mason-tool-installer')
     local mason_lsp = require('mason-lspconfig')
-    local lspconfig = require('lspconfig')
     local cmp_nvim_lsp = require('cmp_nvim_lsp')
     local icons = require('appearance.icons')
 
@@ -42,26 +41,25 @@ function M.config()
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
     -- NOTE: disabling snippets on cmp in favor of explicitly searching then
     capabilities.textDocument.completion.completionItem.snippetSupport = false
+
+    for lang, server in pairs(langs) do
+        if type(server) ~= 'function' then
+            if server.disable_lsp then
+                return
+            end
+
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            if server.extra_settings then
+                vim.lsp.config(lang, server.extra_settings())
+            else
+                vim.lsp.config(lang, server)
+            end
+        end
+    end
+
     mason.setup()
     mason_installer.setup({ ensure_installed = langs.ensure_installed() })
-
-    mason_lsp.setup({
-        handlers = {
-            function(lang)
-                local server = langs[lang] or {}
-                if server.disable_lsp then
-                    return
-                end
-
-                server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-                if server.extra_settings then
-                    lspconfig[lang].setup(server.extra_settings())
-                else
-                    lspconfig[lang].setup(server)
-                end
-            end,
-        },
-    })
+    mason_lsp.setup()
 
     vim.lsp.buf.hover = with_border(vim.lsp.buf.hover)
     vim.lsp.buf.signature_help = with_border(vim.lsp.buf.signature_help)

@@ -206,7 +206,7 @@ function navigation.config()
             folds = false,
             foldtext = false,
             lists = false,
-            cmp = false,
+            completion = false,
         },
         mappings = {
             MkdnEnter = false,

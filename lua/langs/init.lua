@@ -19,7 +19,8 @@ local M = {
     bashls = require('langs.bash'),
     clangd = require('langs.clang'),
     cssls = require('langs.css').css,
-    tailwindcss = require('langs.css').tailwind,
+    -- NOTE: removing tailwind for now, since it is not updated for the new lspconfig signature
+    -- tailwindcss = require('langs.css').tailwind,
     emmet_language_server = require('langs.html').emmet,
     html = require('langs.html').html,
     jdtls = require('langs.java'),
