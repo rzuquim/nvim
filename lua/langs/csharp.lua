@@ -1,9 +1,10 @@
 local M = {
-    cmd = {
-        'dotnet',
-        vim.fn.stdpath('data') .. '/mason/packages/omnisharp/libexec/OmniSharp.dll',
-    },
-    settings = {},
+    -- NOTE: OmniSharp config
+    -- cmd = {
+    --     'dotnet',
+    --     vim.fn.stdpath('data') .. '/mason/packages/omnisharp/libexec/OmniSharp.dll',
+    -- },
+    -- settings = {},
     on_attach = function(client, _)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
@@ -29,6 +30,15 @@ local M = {
         cs = require('snippets.csharp'),
     },
     extra_dap = {},
+    extra_plugins = {
+        {
+            'Decodetalkers/csharpls-extended-lsp.nvim',
+            ft = { 'cs' },
+            config = function()
+                require('csharpls_extended').buf_read_cmd_bind()
+            end,
+        },
+    },
 }
 
 local selected_csproj_dir = nil
