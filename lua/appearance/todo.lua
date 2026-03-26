@@ -14,6 +14,7 @@ return {
                 -- signs = false, -- configure signs for some keywords individually
             },
             TODO = { icon = ' ', color = 'info' },
+            SAFETY = { icon = '🔒', color = 'info' },
             HACK = { icon = ' ', color = 'warning' },
             WARN = { icon = ' ', color = 'warning' },
             PERF = { icon = ' ' },

@@ -52,4 +52,11 @@ M.tailwind = {
     },
 }
 
+-- NOTE: unity css ui toolkit
+vim.filetype.add({
+    extension = {
+        uss = 'css',
+    },
+})
+
 return M

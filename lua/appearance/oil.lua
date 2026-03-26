@@ -1,4 +1,5 @@
 local keymaps = require('keymaps')
+local hidden_files = require('hidden_files')
 
 local M = {
     'stevearc/oil.nvim',
@@ -12,7 +13,12 @@ function M.config()
         view_options = {
             show_hidden = false,
             is_hidden_file = function(name)
-                return name:match('%.cs.meta$')
+                for _, hidden in ipairs(hidden_files) do
+                    if name:match(hidden) then
+                        return true
+                    end
+                end
+                return false
             end,
         },
     })

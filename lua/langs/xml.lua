@@ -43,4 +43,11 @@ function M.on_attach(client)
     end
 end
 
+-- NOTE: unity xml ui toolkit
+vim.filetype.add({
+    extension = {
+        uxml = 'xml',
+    },
+})
+
 return M
