@@ -93,7 +93,9 @@ local M = {
 
 for lang, settings in pairs(M) do
     if type(settings) ~= 'function' then
-        table.insert(ensure_installed, lang)
+        if not settings.disable_lsp then
+            table.insert(ensure_installed, lang)
+        end
 
         if settings.setup_custom_help then
             settings.setup_custom_help(custom_help)

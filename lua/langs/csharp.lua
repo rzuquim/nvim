@@ -1,14 +1,42 @@
+local opts = {
+    lsp = {
+        enabled = true, -- Enable builtin roslyn lsp
+        roslynator_enabled = true, -- Automatically enable roslynator analyzer
+        easy_dotnet_analyzer_enabled = true, -- Enable roslyn analyzer from easy-dotnet-server
+        analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
+        auto_refresh_codelens = false,
+    },
+    csproj_mappings = true,
+    fsproj_mappings = true,
+    auto_bootstrap_namespace = {
+        --block_scoped, file_scoped
+        type = 'file_scoped',
+        enabled = true,
+    },
+    server = {
+        ---@type nil | "Off" | "Critical" | "Error" | "Warning" | "Information" | "Verbose" | "All"
+        log_level = 'All',
+    },
+    picker = 'telescope',
+    background_scanning = true,
+    notifications = {
+        handler = false,
+    },
+    diagnostics = {
+        default_severity = 'error',
+        setqflist = false,
+    },
+    terminal = {},
+    new = {},
+    debugger = {},
+    test_runner = {
+        auto_start_testrunner = false,
+    },
+}
+
 local M = {
-    -- NOTE: OmniSharp config
-    -- cmd = {
-    --     'dotnet',
-    --     vim.fn.stdpath('data') .. '/mason/packages/omnisharp/libexec/OmniSharp.dll',
-    -- },
-    -- settings = {},
-    on_attach = function(client, _)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-    end,
+    -- NOTE: disabling cs_ls
+    disable_lsp = true,
     extra_formatters = {
         cs = {
             {
@@ -32,10 +60,28 @@ local M = {
     extra_dap = {},
     extra_plugins = {
         {
-            'Decodetalkers/csharpls-extended-lsp.nvim',
-            ft = { 'cs' },
+            'GustavEikaas/easy-dotnet.nvim',
             config = function()
-                require('csharpls_extended').buf_read_cmd_bind()
+                local dotnet = require('easy-dotnet')
+                local lsp_client_name = require('easy-dotnet.constants').lsp_client_name
+
+                vim.api.nvim_create_autocmd('LspAttach', {
+                    group = vim.api.nvim_create_augroup('easy-dotnet-lsp-attach', { clear = true }),
+                    callback = function(evt)
+                        local client = vim.lsp.get_client_by_id(evt.data.client_id)
+                        if client == nil then
+                            return
+                        end
+
+                        if client.name == lsp_client_name then
+                            client.server_capabilities.documentFormattingProvider = false
+                            client.server_capabilities.documentRangeFormattingProvider = false
+                            client.server_capabilities.codeLensProvider = nil
+                        end
+                    end,
+                })
+
+                dotnet.setup(opts)
             end,
         },
     },
