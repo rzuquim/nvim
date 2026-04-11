@@ -1,4 +1,3 @@
-
 # Heading 1
 
 ## Heading 2
@@ -65,23 +64,25 @@ if __name__ == "__main__":
 
 - [ ] Unchecked Checkbox
 - [x] Checked Checkbox
-- [-] Todo Checkbox 
+- [-] Todo Checkbox
 
 ---
 
-  > Quote line 1
-  > Quote line 2
+> Quote line 1
+> Quote line 2
 
 # Unordered List
 
 - List Item 1: with [link](https://example.com)
+
 * List Item 2: with `inline` code
-  * Nested List 1 Item 1
-  * Nested List 1 *Item 2*
+  - Nested List 1 Item 1
+  - Nested List 1 _Item 2_
     - Nested List 2 **Item 1**
     - Nested List 3 Item 1
       - Nested List 4 Item 1
-+ List Item 3: with [reference link][example]
+
+- List Item 3: with [reference link][example]
 
 # Ordered List
 
@@ -90,9 +91,8 @@ if __name__ == "__main__":
 
 # Table
 
-| `Left` | *Center* | Right  | Default |
-|  :---  | :----:   |-------:| --------|
-| `Code` | **Bold** | ~~Strike~~ | Item    |
-| Item   | [Link](/test) | Item   | Item    |
-| 1      | 2        | 3      | 4       |
-
+| `Left` |   _Center_    |      Right | Default |
+| :----- | :-----------: | ---------: | ------- |
+| `Code` |   **Bold**    | ~~Strike~~ | Item    |
+| Item   | [Link](/test) |       Item | Item    |
+| 1      |       2       |          3 | 4       |

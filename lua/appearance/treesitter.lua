@@ -1,10 +1,24 @@
 local langs = require('langs')
 local keymap = require('keymaps')
+local util = require('util')
 
-local M = {
+local TS = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    opts = {
+}
+
+local TSTO = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    init = function()
+        -- Disable entire built-in ftplugin mappings to avoid conflicts.
+        vim.g.no_plugin_maps = true
+    end,
+}
+
+function TS.config()
+    -- NOTE: Prefer git instead of curl in order to improve connectivity in some environments
+    require('nvim-treesitter.install').prefer_git = true
+    require('nvim-treesitter').setup({
         -- TODO: "c", "diff", "html", "markdown", "vim", "vimdoc"
         ensure_installed = langs.treesitter(),
         auto_install = true,
@@ -20,16 +34,11 @@ local M = {
                 'latex',
             },
         },
-    },
-}
+    })
+end
 
-local N = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    init = function()
-        -- Disable entire built-in ftplugin mappings to avoid conflicts.
-        vim.g.no_plugin_maps = true
-    end,
-    opts = {
+function TSTO.config()
+    require('nvim-treesitter-textobjects').setup({
         select = {
             lookahead = true,
             selection_modes = {
@@ -42,17 +51,7 @@ local N = {
         move = {
             set_jumps = true,
         },
-    },
-}
-
-function M.config(_, opts)
-    -- NOTE: Prefer git instead of curl in order to improve connectivity in some environments
-    require('nvim-treesitter.install').prefer_git = true
-    require('nvim-treesitter.configs').setup(opts)
-end
-
-function N.config(_, opts)
-    require('nvim-treesitter-textobjects').setup(opts)
+    })
 
     local ts_select = require('nvim-treesitter-textobjects.select')
     local ts_swap = require('nvim-treesitter-textobjects.swap')
@@ -60,4 +59,11 @@ function N.config(_, opts)
     keymap.treesitter(ts_select, ts_swap, ts_move)
 end
 
-return { M, N }
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = util.system_file_types,
+    callback = function(args)
+        vim.treesitter.stop(args.buf)
+    end,
+})
+
+return { TS, TSTO }
