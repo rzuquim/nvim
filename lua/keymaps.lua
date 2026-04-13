@@ -243,24 +243,6 @@ function M.format(conform)
     end)
 end
 
-function M.comments()
-    return {
-        toggler = {
-            line = '<leader>cc',
-            block = '<leader>cb',
-        },
-        opleader = {
-            line = '<leader>cc',
-            block = '<leader>cb',
-        },
-        extra = {
-            above = '<leader>cO',
-            below = '<leader>co',
-            eol = '<leader>cA',
-        },
-    }
-end
-
 function M.gitsigns(buf, custom_toggle_blame)
     local gitsigns = require('gitsigns')
     local bufferScope = { buffer = buf }
@@ -426,6 +408,25 @@ function M.treesitter(ts_select, ts_swap, ts_move)
     keymap({ 'n', 'x', 'o' }, '[c', function()
         ts_move.goto_previous_start('@class.outer', 'textobjects')
     end)
+end
+
+function M.comments()
+    keymap({ 'n', 'x' }, '<leader>cc', 'gcc', { remap = true })
+    -- TODO: we lost block coding and other utilities (that I didn't use much on the first place)
+    -- return {
+    --     toggler = {
+    --         line = '<leader>cc',
+    --         block = '<leader>cb',
+    --     },
+    --     opleader = {
+    --         line = '<leader>cc',
+    --         block = '<leader>cb',
+    --     },
+    --     extra = {
+    --         above = '<leader>cO',
+    --         below = '<leader>co',
+    --         eol = '<leader>cA',
+    --     },
 end
 
 return M
