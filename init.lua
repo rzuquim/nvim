@@ -5,6 +5,7 @@ require('keymaps')
 require('clipboard')
 require('appearance.neovide')
 require('behavior.comments')
+require('behavior.buffer')
 
 local langs = require('langs')
 local plugins = require('plugin_manager')

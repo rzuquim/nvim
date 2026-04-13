@@ -368,6 +368,10 @@ function M.diagnostics(actions)
     keymap('n', '<leader>ef', vim.diagnostic.open_float)
 end
 
+function M.buffer(buf_info)
+    keymap('n', '<leader>bi', buf_info)
+end
+
 function M.treesitter(ts_select, ts_swap, ts_move)
     keymap({ 'x', 'o' }, 'af', function()
         ts_select.select_textobject('@function.outer', 'textobjects')
