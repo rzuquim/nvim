@@ -36,6 +36,7 @@ plugins.setup('behavior.auto_save')
 plugins.setup('behavior.tmux')
 plugins.setup('behavior.dap')
 plugins.setup('behavior.snippets')
+plugins.setup('behavior.music')
 
 for _, plugin in pairs(langs.extra_plugins()) do
     plugins.setup(plugin, true)

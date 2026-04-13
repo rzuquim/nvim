@@ -29,6 +29,7 @@ return {
         javascriptreact = { 'prettier' },
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
+        strudel = { 'prettier' },
     },
     extra_linters = {
         javascript = { 'eslint_d', eslint_extra_condition },
@@ -63,6 +64,6 @@ return {
     --     },
     -- },
     -- TODO: figure out workspace diagnostics
-    extensions = { 'js', 'jsx', 'ts', 'tsx' },
+    extensions = { 'js', 'jsx', 'ts', 'tsx', 'str' },
     -- diagnostics = function() end,
 }

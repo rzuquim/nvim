@@ -1,4 +1,5 @@
 local M = {
+    -- TODO: remove this lspconfig deprecated dependency
     'neovim/nvim-lspconfig',
     dependencies = {
         { 'williamboman/mason.nvim', config = true }, -- package manager
