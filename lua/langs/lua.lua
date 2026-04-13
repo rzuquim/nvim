@@ -1,4 +1,8 @@
 return {
+    capabilities = {
+        documentFormattingProvider = false,
+        documentRangeFormattingProvider = false,
+    },
     settings = {
         Lua = {
             completion = {

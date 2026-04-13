@@ -31,7 +31,7 @@ local function with_border(handler)
     end
 end
 
-local function setup_server(lang, server, capabilities)
+local function setup_server(lang, server, client_capabilities)
     if type(server) == 'function' then
         return
     end
@@ -40,7 +40,7 @@ local function setup_server(lang, server, capabilities)
         return
     end
 
-    server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+    server.capabilities = vim.tbl_deep_extend('force', {}, client_capabilities, server.capabilities or {})
     if server.extra_settings then
         vim.lsp.config(lang, server.extra_settings())
     else
@@ -55,10 +55,10 @@ function M.config()
     local cmp_nvim_lsp = require('cmp_nvim_lsp')
     local icons = require('appearance.icons')
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+    local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+    client_capabilities = cmp_nvim_lsp.default_capabilities(client_capabilities)
     -- NOTE: disabling snippets on cmp in favor of explicitly searching then
-    capabilities.textDocument.completion.completionItem.snippetSupport = false
+    client_capabilities.textDocument.completion.completionItem.snippetSupport = false
 
     mason.setup()
     mason_installer.setup({ ensure_installed = langs.ensure_installed() })
@@ -86,7 +86,7 @@ function M.config()
     })
 
     for lang, server in pairs(langs) do
-        setup_server(lang, server, capabilities)
+        setup_server(lang, server, client_capabilities)
     end
 end
 
